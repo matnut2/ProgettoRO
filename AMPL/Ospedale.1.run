@@ -1,0 +1,14 @@
+# ==============================
+#       Esecuzione AMPL
+#      Ricerca operativa
+#        Soldà Matteo
+#           (2022)
+# ==============================
+
+reset;
+model OspedalePadova.mod;
+data Ospedale.1.dat;
+option solver cplex;
+expand;
+solve;
+display costo, bisognoA, bisognoB, ambulanzeA, ambulanzeB, attivazioneSettimanaleA, attivazioneSettimanaleB;
