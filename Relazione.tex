@@ -33,7 +33,29 @@
 \newpage
 \section{Introduzione}
 \subsection{Abstract}
+La Centrale Operativa del 118 della città di Padova necessita di un gran numero di ambulanze per svolgere i trasporti ordinari e in emergenza nell’intera provincia, ma con le ambulanze interne e in possesso degli ospedali periferici si riesce a coprire solo in minima parte il fabbisogno: si rende necessario quindi rivolgersi alle Organizzazione di Volontariato che, in cambio di un rimborso spese, prestano ambulanze e soccorritori per lo svolgimento degli interventi. 
+L’obiettivo del progetto è quello di minimizzare il costo per il mantenimento del servizio, garantendo comunque un pronto intervento in caso di necessità. 
+
 \subsection{Problema Generale}
+Ogni giorno la Centrale Operativa del 118 di Padova e l'Azienda Ospedaliera ricevono una moltitudine di chiamate, sia per richiesti di supporto immediato (che vengono gestite dal SUEM), sia per trasporti programmati (ossia non in emergenza, dedicai al trasporto di persone invalide presso l'ospedale per le visite programmate oppure per la dimissione dal Pronto Soccorso, e che passano per le linee dell'Azienda Ospedaliera).
+\newline \newline
+L'Azienda Ospedaliera al suo interno disponde di un determinato numero di albulanze di tipo B (dedicate ai trasporti), mentre quelle di tipo A (dedicate al SUEM) sono fornite dagli ospedali periferici. L'insieme di questi mezzi non è però sufficiente a coprire le richieste pervenute dall'intera provincia, ma ne ricopre una minima parte. Per questo motivo, la Centrale Operativa si rivolge a tre Organizzazioni di Volontariato (OdV) che offrono il loro supporto per coprire i viaggi scoperti:
+\begin{itemize}
+    \item La Croce Rossa può fornire solo ambulanze di tipo A
+    \item La Croce Bianca può fornire solo ambulanze di tipo B
+    \item La Croce Verde può fornire sia ambulanze di tipo A che di tipo B
+\end{itemize}
+
+Il numero di ambulanze complessive in un determinato giorno viene stimato rispetto alla media di interventi e trasporto effettuati negli stessi giorni delle settimane precedenti, mantenendo comunque un numero arbitrario di ambulanze sia di tipo A che di tipo B in più.
+\newline \newline
+Si vuole quindi minimizzare il costo complessivo settimanale per il servizio, sapendo che:
+\begin{itemize}
+    \item Ogni giorno la Centrale Operativa ha necessità di un quantitativo diverso di ambulanze
+    \item Qualora si attivasse una OdV per l'assistenza settimanale, è prevista una singola quota fissa di attivazione
+    \item Ogni ambulanza richiamata dalle OdV prevede un rimborso spese giornaliero che varia in base all'organizzazione e al tipo di ambulanza attivata
+    \item Le ambulanze dell'Azienda Ospedaliera e degli Ospedali periferici, se attivate in un determinato giorno prevedono dei piccoli costi di manutenzione
+    \item Ogni giorno bisogna attivare un numero arbitrario di ambulanze in più rispetto al fabbisogno
+\end{itemize}
 \newpage
 \section{Modello}
 \subsection{Insiemi}
