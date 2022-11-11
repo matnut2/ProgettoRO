@@ -31,6 +31,9 @@ sabato 2
 domenica 0
 ;
 
+param surplusA;
+param surplusB;
+
 param maxA :=
 rossa 15
 verde 20

@@ -11,4 +11,4 @@ data Ospedale.1.dat;
 option solver cplex;
 expand;
 solve;
-display costo, bisognoA, bisognoB, ambulanzeA, ambulanzeB, attivazioneSettimanaleA, attivazioneSettimanaleB;
+display costo, bisognoA, surplusA, bisognoB, surplusB, ambulanzeA, ambulanzeB, attivazioneSettimanaleA, attivazioneSettimanaleB;

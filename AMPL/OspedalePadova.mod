@@ -11,19 +11,21 @@ set FornitoriA;                                                                 
 set FornitoriB;                                                                                 # Fornitori di ambulanze di tipo B
 
 ### PARAMETRI ###
-param bisognoA { Giorni } integer default 0;                                                    # Fabbisogno giornaliero di ambulanze di tipo A
-param bisognoB { Giorni } integer default 0;                                                    # Fabbisogno giornaliero di ambulanze di tipo B
-param maxA { FornitoriA } integer >= 0 default 15;                                              # Numero massimo di ambulanze di tipo A che un fornitore pu� fornire
-param maxB { FornitoriB } integer >= 0 default 5;                                               # Numero massimo di ambulanze di tipo B che un fornitore pu� fornire
-param costoGiornalieroA { FornitoriA } default 10;				                                # Costo per l'attivazione giornaliera di una ambulanza di tipo A in base al fornitore
-param costoGiornalieroB { FornitoriB } default 5;				                                # Costo per l'attivazione giornaliera di una ambulanza di tipo B in base al fornitore
-param costoAttivazioneA { FornitoriA } default 100;				                                # Costo per l'attivazione settimanale di una ambulanza di tipo A in base al fornitore
-param costoAttivazioneB { FornitoriB } default 75;				                                # Costo per l'attivazione settimanale di una ambulanza di tipo B in base al fornitore
-param BigM := 9999999;								                                            # BigM per vincoli di tipo logico
+param bisognoA { Giorni } >= 0 integer default 0;                                                    # Fabbisogno giornaliero di ambulanze di tipo A
+param bisognoB { Giorni } >= 0 integer default 0;                                                    # Fabbisogno giornaliero di ambulanze di tipo B
+param surplusA { Giorni } >= 2 integer default 2;
+param surplusB { Giorni } >= 1 integer default 1;
+param maxA { FornitoriA } >= 0 integer default 15;                                              # Numero massimo di ambulanze di tipo A che un fornitore pu� fornire
+param maxB { FornitoriB } >= 0 integer default 5;                                               # Numero massimo di ambulanze di tipo B che un fornitore pu� fornire
+param costoGiornalieroA { FornitoriA } > 0 default 10;				                                # Costo per l'attivazione giornaliera di una ambulanza di tipo A in base al fornitore
+param costoGiornalieroB { FornitoriB } > 0 default 5;				                                # Costo per l'attivazione giornaliera di una ambulanza di tipo B in base al fornitore
+param costoAttivazioneA { FornitoriA } >= 0 default 100;				                                # Costo per l'attivazione settimanale di una ambulanza di tipo A in base al fornitore
+param costoAttivazioneB { FornitoriB } >= 0 default 75;				                                # Costo per l'attivazione settimanale di una ambulanza di tipo B in base al fornitore
+param BigM >= 0 integer default 500;								                                            # BigM per vincoli di tipo logico
 
 ### VARIABILI ###
-var ambulanzeA { fa in FornitoriA, ga in Giorni } integer >= 0;                                 # Numero di ambulanze di tipo A fornite dal fornitore f il giorno g 
-var ambulanzeB { fb in FornitoriB, gb in Giorni } integer >= 0;                                 # Numero di ambulanze di tipo B fornite dal fornitore f il giorno g
+var ambulanzeA { fa in FornitoriA, ga in Giorni } integer >= 0;                                 # Numero di ambulanze di tipo A fornite dal fornitore fa il giorno ga 
+var ambulanzeB { fb in FornitoriB, gb in Giorni } integer >= 0;                                 # Numero di ambulanze di tipo B fornite dal fornitore fb il giorno gb
 var attivazioneSettimanaleA { f in FornitoriA }   binary;		                                # Varaibile logica per l'attivazione settimanale delle ambulanze di tipo A di un certo fornitore
 var attivazioneSettimanaleB { f in FornitoriB }	  binary;		                                # Variabile logica per l'attivazione settimanale delle ambulanze di tipo B di un certo fornitore
 
@@ -37,8 +39,8 @@ minimize costo:
 
 ### VINCOLI ###
 # Vincoli Necessit� Giornaliera
-subject to necessitaGiornalieraA {g in Giorni} : sum { f in FornitoriA } ambulanzeA[f, g] >=  bisognoA[g] + 3;
-subject to necessitaGiornalieraB {g in Giorni} : sum { f in FornitoriB } ambulanzeB[f, g] >=  bisognoB[g] + 1;
+subject to necessitaGiornalieraA {g in Giorni} : sum { f in FornitoriA } ambulanzeA[f, g] >=  bisognoA[g] + surplusA[g];
+subject to necessitaGiornalieraB {g in Giorni} : sum { f in FornitoriB } ambulanzeB[f, g] >=  bisognoB[g] + surplusB[g];
 
 # Vincoli Disponibilit� Fornitori
 subject to disponibilitaA { f in FornitoriA, g in Giorni } :  ambulanzeA[f, g] <= maxA[f];
