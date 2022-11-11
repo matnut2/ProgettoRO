@@ -1,0 +1,43 @@
+# ==============================
+#       Esecuzione AMPL
+#      Ricerca operativa
+#        Soldà Matteo
+#           (2022)
+# ==============================
+
+reset;
+model OspedalePadova.mod;
+data Ospedale.3.dat;
+option solver cplex;
+solve;
+
+### OUTPUT ###
+printf "--------------------------------------------\n";
+printf " Risultati Esecuzione 3 - Gestione Ambulanze\n";
+printf "--------------------------------------------\n";
+printf "Tempo di esecuzione: %.3f s\n", _total_solve_time;
+
+printf "\n--------------------\n";  
+printf "- Parametri in uso - \n";
+printf "--------------------\n";    
+
+display bisognoA, surplusA, bisognoB, surplusB;
+
+display maxA, maxB;
+display costoGiornalieroA, costoGiornalieroB;
+display costoAttivazioneA, costoAttivazioneB;
+
+printf "\n--------------------\n";  
+printf "- Stampa Risultati - \n";
+printf "--------------------\n"; 
+
+display attivazioneSettimanaleA, attivazioneSettimanaleB;
+display ambulanzeA, ambulanzeB;
+
+printf "\n----------------\n";  
+printf "- Costo Minimo - \n";
+printf "----------------\n"; 
+display costo;
+
+#expand;		## Decommentare la riga per espandere il modello
+

@@ -1,0 +1,88 @@
+# ==============================
+#          Dati AMPL
+#      Ricerca operativa
+#        Soldà Matteo
+#           (2022)
+# ==============================
+
+### INSIEMI ###
+set Giorni := lunedi martedi mercoledi giovedi venerdi sabato domenica;
+set FornitoriA := rossa verde interna;
+set FornitoriB := bianca verde interna;
+
+### PARAMETRI ###
+param bisognoA := 
+lunedi 150
+martedi 22
+mercoledi 10 
+giovedi 20 
+venerdi 30 
+sabato 30
+domenica 15
+;
+
+param bisognoB := 
+lunedi 65
+martedi 5
+mercoledi 2
+giovedi 3
+venerdi 4
+sabato 2
+domenica 0
+;
+
+param surplusA :=
+lunedi 3
+martedi 3
+mercoledi 3
+giovedi 2
+venerdi 5
+sabato 6
+domenica 4
+;
+
+param surplusB :=
+lunedi 1
+martedi 3
+mercoledi 1
+giovedi 1
+venerdi 2
+sabato 1
+domenica 1
+;
+
+param maxA :=
+rossa 15
+verde 20
+interna 3
+;
+
+param maxB :=
+bianca 5
+verde 10
+interna 8
+;
+
+param costoGiornalieroA :=
+rossa 15
+verde 18
+interna 8
+;
+
+param costoGiornalieroB :=
+bianca 20
+verde 12
+interna 5
+;
+
+param costoAttivazioneA :=
+rossa 130
+verde 50
+interna 0
+;
+
+param costoAttivazioneB :=
+bianca 70
+verde 55
+interna 0
+; 
