@@ -1,0 +1,263 @@
+--------------------------------------------
+ Risultati Esecuzione 1 - Gestione Ambulanze
+--------------------------------------------
+Tempo di esecuzione: 0.047 s
+
+--------------------
+- Parametri in uso - 
+--------------------
+:         bisognoA surplusA bisognoB surplusB    :=
+lunedi        20       3        3        1
+martedi       22       3        5        3
+mercoledi     10       3        2        1
+giovedi       20       2        3        1
+venerdi       30       5        4        2
+sabato        30       6        2        1
+domenica      15       4        0        1
+;
+
+:       maxA maxB    :=
+bianca     .    5
+interna    3    8
+rossa     15    .
+verde     20   10
+;
+
+:       costoGiornalieroA costoGiornalieroB    :=
+bianca           .                20
+interna          8                 5
+rossa           15                 .
+verde           18                12
+;
+
+:       costoAttivazioneA costoAttivazioneB    :=
+bianca           .                70
+interna           0                0
+rossa           130                .
+verde            50               55
+;
+
+
+--------------------
+- Stampa Risultati - 
+--------------------
+:       attivazioneSettimanaleA attivazioneSettimanaleB    :=
+bianca              .                       0
+interna             1                       1
+rossa               1                       .
+verde               1                       0
+;
+
+:                 ambulanzeA ambulanzeB    :=
+bianca  lunedi          .         0
+bianca  martedi         .         0
+bianca  mercoledi       .         0
+bianca  giovedi         .         0
+bianca  venerdi         .         0
+bianca  sabato          .         0
+bianca  domenica        .         0
+interna lunedi          3         4
+interna martedi         3         8
+interna mercoledi       3         3
+interna giovedi         3         4
+interna venerdi         3         6
+interna sabato          3         3
+interna domenica        3         1
+rossa   lunedi         15          .
+rossa   martedi        15          .
+rossa   mercoledi      10          .
+rossa   giovedi        15          .
+rossa   venerdi        15          .
+rossa   sabato         15          .
+rossa   domenica       15          .
+verde   lunedi          5         0
+verde   martedi         7         0
+verde   mercoledi       0         0
+verde   giovedi         4         0
+verde   venerdi        17         0
+verde   sabato         18         0
+verde   domenica        1         0
+;
+
+
+----------------
+- Costo Minimo - 
+----------------
+costo = 2929
+
+
+
+--------------------------------------------
+ Risultati Esecuzione 2 - Gestione Ambulanze
+--------------------------------------------
+Tempo di esecuzione: 0.000 s
+
+--------------------
+- Parametri in uso - 
+--------------------
+:         bisognoA surplusA bisognoB surplusB    :=
+lunedi       150       3        65       1
+martedi       22       3         5       3
+mercoledi     10       3         2       1
+giovedi       20       2         3       1
+venerdi       30       5         4       2
+sabato        30       6         2       1
+domenica      15       4         0       1
+;
+
+:       maxA maxB    :=
+bianca     .    5
+interna    3    8
+rossa     15    .
+verde     20   10
+;
+
+:       costoGiornalieroA costoGiornalieroB    :=
+bianca           .                20
+interna          8                 5
+rossa           15                 .
+verde           18                12
+;
+
+:       costoAttivazioneA costoAttivazioneB    :=
+bianca           .                70
+interna           0                0
+rossa           130                .
+verde            50               55
+;
+
+
+--------------------
+- Stampa Risultati - 
+--------------------
+:       attivazioneSettimanaleA attivazioneSettimanaleB    :=
+bianca              .                       0
+interna             1                       0
+rossa               1                       .
+verde               1                       0
+;
+
+:                 ambulanzeA ambulanzeB    :=
+bianca  lunedi          .         0
+bianca  martedi         .         0
+bianca  mercoledi       .         0
+bianca  giovedi         .         0
+bianca  venerdi         .         0
+bianca  sabato          .         0
+bianca  domenica        .         0
+interna lunedi         0          0
+interna martedi        0          0
+interna mercoledi      0          0
+interna giovedi        0          0
+interna venerdi        0          0
+interna sabato         0          0
+interna domenica       0          0
+rossa   lunedi         0           .
+rossa   martedi        0           .
+rossa   mercoledi      0           .
+rossa   giovedi        0           .
+rossa   venerdi        0           .
+rossa   sabato         0           .
+rossa   domenica       0           .
+verde   lunedi         0          0
+verde   martedi        0          0
+verde   mercoledi      0          0
+verde   giovedi        0          0
+verde   venerdi        0          0
+verde   sabato         0          0
+verde   domenica       0          0
+;
+
+
+----------------
+- Costo Minimo - 
+----------------
+costo = 180
+
+--------------------------------------------
+ Risultati Esecuzione 3 - Gestione Ambulanze
+--------------------------------------------
+Tempo di esecuzione: 0.016 s
+
+--------------------
+- Parametri in uso - 
+--------------------
+:         bisognoA surplusA bisognoB surplusB    :=
+lunedi        0        2        0        1
+martedi       0        2        0        1
+mercoledi     0        2        0        1
+giovedi       0        2        0        1
+venerdi       0        2        0        1
+sabato        0        2        0        1
+domenica      0        2        0        1
+;
+
+:       maxA maxB    :=
+bianca     .   5
+interna   15   5
+rossa     15    .
+verde     15   5
+;
+
+:       costoGiornalieroA costoGiornalieroB    :=
+bianca           .                 5
+interna         10                 5
+rossa           10                 .
+verde           10                 5
+;
+
+:       costoAttivazioneA costoAttivazioneB    :=
+bianca           .                75
+interna         100               75
+rossa           100                .
+verde           100               75
+;
+
+
+--------------------
+- Stampa Risultati - 
+--------------------
+:       attivazioneSettimanaleA attivazioneSettimanaleB    :=
+bianca              .                       0
+interna             0                       1
+rossa               1                       .
+verde               0                       0
+;
+
+:                 ambulanzeA ambulanzeB    :=
+bianca  lunedi          .         0
+bianca  martedi         .         0
+bianca  mercoledi       .         0
+bianca  giovedi         .         0
+bianca  venerdi         .         0
+bianca  sabato          .         0
+bianca  domenica        .         0
+interna lunedi         0          1
+interna martedi        0          1
+interna mercoledi      0          1
+interna giovedi        0          1
+interna venerdi        0          1
+interna sabato         0          1
+interna domenica       0          1
+rossa   lunedi         2           .
+rossa   martedi        2           .
+rossa   mercoledi      2           .
+rossa   giovedi        2           .
+rossa   venerdi        2           .
+rossa   sabato         2           .
+rossa   domenica       2           .
+verde   lunedi         0          0
+verde   martedi        0          0
+verde   mercoledi      0          0
+verde   giovedi        0          0
+verde   venerdi        0          0
+verde   sabato         0          0
+verde   domenica       0          0
+;
+
+
+----------------
+- Costo Minimo - 
+----------------
+costo = 350
+
