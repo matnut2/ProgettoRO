@@ -1,0 +1,39 @@
+\subsection{Insiemi}
+\begin{itemize}
+    \item $Giorni$: giorni della settimana in cui è attivo il servizio
+    \item $FornitoriA$: fornitori che dispongono di ambulanze di tipo A da attivare
+    \item $FornitoriB$: fornitori che dispongono di ambulanze di tipo B da attivare
+\end{itemize}
+\subsection{Parametri}
+\begin{itemize}
+    \item $bisognoA_{g}$: fabbisogno per il giorno $g$ di ambulanze di tipo A (escluso surplus arbitrario)
+    \item $bisognoB_{g}$: fabbisogno per il giorno $g$ di ambulanze di tipo B (escluso surplus arbitrario)
+    \item $surplusA_{g}$: surplus di ambulanze di tipo A per il giorno $g$
+    \item $surplusB_{g}$: surplus di ambulanze di tipo B per il giorno $g$
+    \item $maxA_{fa}$: numero massimo di ambulanze di tipo A che il fornitore $fa$ può fornire
+    \item $maxB_{fb}$: numero massimo di ambulanze di tipo B che il fornitore $fb$ può fornire
+    \item $costoGiornalieroA_{fa}$: costo per l'attivazione giornaliera per una singola ambulanza di tipo A del fornitore $fa$
+    \item $costoGiornalieroB_{fb}$: costo per l'attivazione giornaliera per una singola ambulanza di tipo B del fornitore $fb$
+    \item $costoAttivazioneA_{fa}$: costo settimanale per l'attivazione di un fornitore $fa$ per la fornitura settimanale di ambulanze di tipo A
+    \item $costoAttivazioneB_{fb}$: costo settimanale per l'attivazione di un fornitore $fb$ per la fornitura settimanale di ambulanze di tipo B
+    \item $BigM$: utilizzato per vincolare l'utilizzo delle ambulanze rispetto all'attivazione del fornitore (costante sufficientemente grande)
+\end{itemize}
+\subsection{Variabili Decisionali}
+\begin{itemize}
+    \item $ambulanzeA_{fa, ga}$ = numero di ambulanze del fornitore $fa$ attivate il giorno $ga$;
+    \item $ambulanzeB_{fb, gb}$ =  numero di ambulanze del fornitore $fb$ attivate il giorno $gb$;
+    \item $attivazioneSettimanaleA_{fa}$ = 
+    \[
+    \begin{cases}
+        1 & \text{se viene attivato il fornitore di ambulanze di tipo A \textit{fa} per la settimana} \\
+        0 & altrimenti
+    \end{cases}\]
+    \item $attivazioneSettimanaleB_{fb}$ = 
+    \[
+    \begin{cases}
+        1 & \text{se viene attivato il fornitore di ambulanze di tipo B \textit{fb} per la settimana} \\
+        0 & altrimenti
+    \end{cases}\]
+\end{itemize}
+
+\input{CapitoliRelazione/FO.tex}

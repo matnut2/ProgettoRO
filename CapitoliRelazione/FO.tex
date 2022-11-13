@@ -1,0 +1,42 @@
+\subsection{Funzione Obiettivo}
+La funzione obiettivo del problema può essere espressa in forma generale come segue:
+\begin{align*}
+	\textrm{min} \quad & \textbf{Costo\ Giornaliero\ Ambulanze\ Tipo\ A} + \textbf{Costo\ Giornaliero\ Ambulanze\ Tipo\ B} \\ 
+    & + \textbf{Costo\ Attivazione\ Ambulanze\ Tipo\ A} + \textbf{Costo\ Attivazione\ Ambulanze\ Tipo\ B}
+\end{align*}
+
+Dove i termini sono così definiti:
+\begin{flalign*}
+    & \textbf{Costo\ Giornaliero\ Ambulanze\ Tipo\ A} = \sum_{f \in FornitoriA, g \in Giorni} ambulanzeA[f, g] \cdot costoGiornalieroA[f] && \\
+    & \textbf{Costo\ Giornaliero\ Ambulanze\ Tipo\ B} = \sum_{f \in FornitoriB, g \in Giorni} ambulanzeB[f, g] \cdot costoGiornalieroB[f] && \\
+    & \textbf{Costo\ Attivazione\ Ambulanze\ Tipo\ A} = \sum_{f \in FornitoriA} attivazioneSettimanaleA[f] \cdot costoAttivazioneA[f] && \\
+    & \textbf{Costo\ Attivazione\ Ambulanze\ Tipo\ B} = \sum_{f \in FornitoriB} attivazioneSettimanaleB[f] \cdot costoAttivazioneB[f] &&
+\end{flalign*}
+\textbf{subject to}
+\begin{itemize}
+    \item Ogni giorno la Centrale Operativa ha necessità di un numero diverso di ambulanze:
+\end{itemize}
+\begin{flalign*}
+    &  \sum_{f \in FornitoriA} ambulanzeA[f, g] \geq bisognoA[g] + surplusA[g] & \forall g \in Giorni & \\
+    &  \sum_{f \in FornitoriB} ambulanzeB[f, g] \geq bisognoB[g] + surplusB[g] & \forall g \in Giorni &
+\end{flalign*}
+\begin{itemize}
+    \item I fornitori dispongono di un numero massimo di ambulanze fornibili durante la settimana:
+\end{itemize}
+\begin{flalign*}
+    &  ambulanze[f, g] \leq maxA[f] & \forall f \in FornitoriA, g \in Giorni & \\
+    &  ambulanze[f, g] \leq maxB[f] & \forall f \in FornitoriB, g \in Giorni &
+\end{flalign*}
+\begin{itemize}
+    \item Le ambulanze di un determinato fornitore si possono attivare se e solo se si è pagata la quota di attivazione settimanale:
+\end{itemize}
+\begin{flalign*}
+    & ambulanzeA[f, g] \leq BigM \cdot attivazioneSettimanaleA[f] & \\
+    & ambulanzeB[f, g] \leq BigM \cdot attivazioneSettimanaleB[f] &
+\end{flalign*}
+
+\textbf{Domini:}
+\begin{itemize}
+    \item $ambulanzeA_{f, g}, \ ambulanzeB_{f, g} \ \geq \ 0$
+    \item $attivazioneSettimanaleA_{f}, \ attivazioneSettimanaleB_{f} \ \in \ {0, \ 1}$
+\end{itemize}
