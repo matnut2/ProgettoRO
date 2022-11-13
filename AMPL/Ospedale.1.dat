@@ -86,3 +86,5 @@ bianca 70
 verde 55
 interna 0
 ; 
+
+param BigM := 64;
