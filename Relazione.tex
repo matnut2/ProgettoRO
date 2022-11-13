@@ -17,7 +17,7 @@
 
 \title{Progetto di Ricerca Operativa}
 \author{Soldà Matteo }
-\date{A.A. 2022-2023}
+\date{A.A. 2022--2023}
 
 \begin{document}
 
@@ -42,8 +42,8 @@ Ogni giorno la Centrale Operativa del 118 di Padova e l'Azienda Ospedaliera rice
 \newline \newline
 L'Azienda Ospedaliera al suo interno dispone di un determinato numero di ambulanze di tipo B (dedicate ai trasporti), mentre quelle di tipo A (dedicate al SUEM) sono fornite dagli ospedali periferici. L'insieme di questi mezzi non è però sufficiente a coprire le richieste pervenute dall'intera provincia, ma ne ricopre una minima parte. Per questo motivo, la Centrale Operativa si rivolge a tre Organizzazioni di Volontariato (OdV) che offrono il loro supporto per coprire i viaggi scoperti:
 \begin{itemize}
-    \item La Croce Rossa può fornire solo ambulanze di tipo A;
-    \item La Croce Bianca può fornire solo ambulanze di tipo B;
+    \item La Croce Rossa può fornire solo ambulanze di tipo A
+    \item La Croce Bianca può fornire solo ambulanze di tipo B
     \item La Croce Verde può fornire sia ambulanze di tipo A che di tipo B.
 \end{itemize}
 
@@ -51,55 +51,55 @@ Il numero di ambulanze complessive in un determinato giorno viene stimato rispet
 \newline \newline
 Si vuole quindi minimizzare il costo complessivo settimanale per il servizio, sapendo che:
 \begin{itemize}
-    \item Ogni giorno la Centrale Operativa ha necessità di un quantitativo diverso di ambulanze;
-    \item Qualora si attivasse una OdV per l'assistenza settimanale, è prevista una singola quota fissa di attivazione;
-    \item Ogni ambulanza richiamata dalle OdV prevede un rimborso spese giornaliero che varia in base all'organizzazione e al tipo di ambulanza attivata;
-    \item Le ambulanze dell'Azienda Ospedaliera e degli Ospedali periferici, se attivate in un determinato giorno prevedono dei piccoli costi di manutenzione;
-    \item Ogni giorno bisogna attivare un numero arbitrario di ambulanze in più rispetto al fabbisogno.
+    \item Ogni giorno la Centrale Operativa ha necessità di un quantitativo diverso di ambulanze
+    \item Qualora si attivasse una OdV per l'assistenza settimanale, è prevista una singola quota fissa di attivazione
+    \item Ogni ambulanza richiamata dalle OdV prevede un rimborso spese giornaliero che varia in base all'organizzazione e al tipo di ambulanza attivata
+    \item Le ambulanze dell'Azienda Ospedaliera e degli Ospedali periferici, se attivate in un determinato giorno prevedono dei piccoli costi di manutenzione
+    \item Ogni giorno bisogna attivare un numero arbitrario di ambulanze in più rispetto al fabbisogno
 \end{itemize}
 \newpage
 \section{Modello}
 \subsection{Insiemi}
 \begin{itemize}
-    \item $Giorni$: giorni della settimana in cui è attivo il servizio;
-    \item $FornitoriA$: fornitori che dispongono di ambulanze di tipo A da attivare;
-    \item $FornitoriB$: fornitori che dispongono di ambulanze di tipo B da attivare.
+    \item $Giorni$: giorni della settimana in cui è attivo il servizio
+    \item $FornitoriA$: fornitori che dispongono di ambulanze di tipo A da attivare
+    \item $FornitoriB$: fornitori che dispongono di ambulanze di tipo B da attivare
 \end{itemize}
 \subsection{Parametri}
 \begin{itemize}
-    \item $bisognoA_{g}$: fabbisogno per il giorno $g$ di ambulanze di tipo A (escluso surplus arbitrario);
-    \item $bisognoB_{g}$: fabbisogno per il giorno $g$ di ambulanze di tipo B (escluso surplus arbitrario);
-    \item $surplusA_{g}$: surplus di ambulanze di tipo A per il giorno $g$;
-    \item $surplusB_{g}$: surplus di ambulanze di tipo B per il giorno $g$;
-    \item $maxA_{fa}$: numero massimo di ambulanze di tipo A che il fornitore $fa$ può fornire;
-    \item $maxB_{fb}$: numero massimo di ambulanze di tipo B che il fornitore $fb$ può fornire;
-    \item $costoGiornalieroA_{fa}$: costo per l'attivazione giornaliera per una singola ambulanza di tipo A del fornitore $fa$;
-    \item $costoGiornalieroB_{fb}$: costo per l'attivazione giornaliera per una singola ambulanza di tipo B del fornitore $fb$;
-    \item $costoAttivazioneA_{fa}$: costo settimanale per l'attivazione di un fornitore $fa$ per la fornitura settimanale di ambulanze di tipo A;
-    \item $costoAttivazioneB_{fb}$: costo settimanale per l'attivazione di un fornitore $fb$ per la fornitura settimanale di ambulanze di tipo B;
-    \item $BigM$: utilizzato per vincolare l'utilizzo delle ambulanze rispetto all'attivazione del fornitore (costante sufficientemente grande).
+    \item $bisognoA_{g}$: fabbisogno per il giorno $g$ di ambulanze di tipo A (escluso surplus arbitrario)
+    \item $bisognoB_{g}$: fabbisogno per il giorno $g$ di ambulanze di tipo B (escluso surplus arbitrario)
+    \item $surplusA_{g}$: surplus di ambulanze di tipo A per il giorno $g$
+    \item $surplusB_{g}$: surplus di ambulanze di tipo B per il giorno $g$
+    \item $maxA_{fa}$: numero massimo di ambulanze di tipo A che il fornitore $fa$ può fornire
+    \item $maxB_{fb}$: numero massimo di ambulanze di tipo B che il fornitore $fb$ può fornire
+    \item $costoGiornalieroA_{fa}$: costo per l'attivazione giornaliera per una singola ambulanza di tipo A del fornitore $fa$
+    \item $costoGiornalieroB_{fb}$: costo per l'attivazione giornaliera per una singola ambulanza di tipo B del fornitore $fb$
+    \item $costoAttivazioneA_{fa}$: costo settimanale per l'attivazione di un fornitore $fa$ per la fornitura settimanale di ambulanze di tipo A
+    \item $costoAttivazioneB_{fb}$: costo settimanale per l'attivazione di un fornitore $fb$ per la fornitura settimanale di ambulanze di tipo B
+    \item $BigM$: utilizzato per vincolare l'utilizzo delle ambulanze rispetto all'attivazione del fornitore (costante sufficientemente grande)
 \end{itemize}
 \subsection{Variabili Decisionali}
 \begin{itemize}
     \item $ambulanzeA_{fa, ga}$ = numero di ambulanze del fornitore $fa$ attivate il giorno $ga$;
     \item $ambulanzeB_{fb, gb}$ =  numero di ambulanze del fornitore $fb$ attivate il giorno $gb$;
     \item $attivazioneSettimanaleA_{fa}$ = 
-    $$
+    \[
     \begin{cases}
         1 & \text{se viene attivato il fornitore di ambulanze di tipo A \textit{fa} per la settimana} \\
         0 & altrimenti
-    \end{cases}$$
+    \end{cases}\]
     \item $attivazioneSettimanaleB_{fb}$ = 
-    $$
+    \[
     \begin{cases}
         1 & \text{se viene attivato il fornitore di ambulanze di tipo B \textit{fb} per la settimana} \\
         0 & altrimenti
-    \end{cases}$$
+    \end{cases}\]
 \end{itemize}
 \subsection{Funzione Obiettivo}
 \newpage
 \section{Codice AMPL}
-\subsection{File .mod}
+\subsection{File \textit{.mod}}
 \newpage
 \section{Scenari}
 \subsection{Primo Scenario}
