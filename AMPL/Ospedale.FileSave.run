@@ -13,7 +13,9 @@ solve;
 
 ### OUTPUT ###
 printf "--------------------------------------------\n" > Output.txt;
+printf "--------------------------------------------\n" >> Output.txt;
 printf " Risultati Esecuzione 1 - Gestione Ambulanze\n" >> Output.txt;
+printf "--------------------------------------------\n" >> Output.txt;
 printf "--------------------------------------------\n" >> Output.txt;
 printf "Tempo di esecuzione: %.3f s\n", _total_solve_time >> Output.txt;
 
@@ -49,7 +51,9 @@ solve;
 
 ### OUTPUT ###
 printf "\n\n--------------------------------------------\n" >> Output.txt;
+printf "--------------------------------------------\n" >> Output.txt;
 printf " Risultati Esecuzione 2 - Gestione Ambulanze\n" >> Output.txt;
+printf "--------------------------------------------\n" >> Output.txt;
 printf "--------------------------------------------\n" >> Output.txt;
 printf "Tempo di esecuzione: %.3f s\n", _total_solve_time >> Output.txt;
 
@@ -85,7 +89,9 @@ solve;
 
 ### OUTPUT ###
 printf "--------------------------------------------\n" >> Output.txt;
+printf "--------------------------------------------\n" >> Output.txt;
 printf " Risultati Esecuzione 3 - Gestione Ambulanze\n" >> Output.txt;
+printf "--------------------------------------------\n" >> Output.txt;
 printf "--------------------------------------------\n" >> Output.txt;
 printf "Tempo di esecuzione: %.3f s\n", _total_solve_time >> Output.txt;
 
