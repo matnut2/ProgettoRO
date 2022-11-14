@@ -16,7 +16,7 @@
     \item $costoGiornalieroB_{fb}$: costo per l'attivazione giornaliera per una singola ambulanza di tipo B del fornitore $fb$
     \item $costoAttivazioneA_{fa}$: costo settimanale per l'attivazione di un fornitore $fa$ per la fornitura settimanale di ambulanze di tipo A
     \item $costoAttivazioneB_{fb}$: costo settimanale per l'attivazione di un fornitore $fb$ per la fornitura settimanale di ambulanze di tipo B
-    \item $BigM$: utilizzato per vincolare l'utilizzo delle ambulanze rispetto all'attivazione del fornitore (costante sufficientemente grande)
+    \item $BigM$: utilizzato per vincolare l'utilizzo delle ambulanze rispetto all'attivazione del fornitore (costante sufficientemente grande), Questo, nei file \textbf{.dat} è stato definito utilizzando la più vicina potenza del 2 rispetto a $Max(bisognoA, bisognoB) + Max(surplusA, surplusB)$.
 \end{itemize}
 \subsection{Variabili Decisionali}
 \begin{itemize}
