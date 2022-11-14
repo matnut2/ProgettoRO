@@ -1,1 +1,46 @@
 \subsection{File \textit{.mod}}
+\textbf{N.B.:} il codice ben commentato si trova nella cartella AMPL.
+\begin{lstlisting}
+    ### INSIEMI ###
+set Giorni ordered;
+set FornitoriA;
+set FornitoriB;
+
+### PARAMETRI ###
+param bisognoA { Giorni } >= 0 integer default 0;
+param bisognoB { Giorni } >= 0 integer default 0;
+param surplusA { Giorni } >= 2 integer default 2;
+param surplusB { Giorni } >= 1 integer default 1;
+param maxA { FornitoriA } >= 0 integer default 15;
+param maxB { FornitoriB } >= 0 integer default 5;
+param costoGiornalieroA { FornitoriA } > 0 default 10;
+param costoGiornalieroB { FornitoriB } > 0 default 5;
+param costoAttivazioneA { FornitoriA } >= 0 default 100;
+param costoAttivazioneB { FornitoriB } >= 0 default 75;
+param BigM >= 0 integer default 500;
+
+### VARIABILI ###
+var ambulanzeA { fa in FornitoriA, ga in Giorni } integer >= 0; 
+var ambulanzeB { fb in FornitoriB, gb in Giorni } integer >= 0;
+var attivazioneSettimanaleA { f in FornitoriA }   binary;
+var attivazioneSettimanaleB { f in FornitoriB }	  binary;
+
+### FUNZIONE OBIETTIVO ###
+minimize costo: 
+    (sum { f in FornitoriA, g in Giorni } ambulanzeA[f, g] * costoGiornalieroA[f]) +
+    (sum { f in FornitoriB, g in Giorni } ambulanzeB[f, g] * costoGiornalieroB[f]) +
+    (sum { f in FornitoriA } attivazioneSettimanaleA[f] * costoAttivazioneA[f])	   +
+    (sum { f in FornitoriB } attivazioneSettimanaleB[f] * costoAttivazioneB[f])
+    ;
+
+### VINCOLI ###
+subject to necessitaGiornalieraA {g in Giorni} : sum { f in FornitoriA } ambulanzeA[f, g] >=  bisognoA[g] + surplusA[g];
+subject to necessitaGiornalieraB {g in Giorni} : sum { f in FornitoriB } ambulanzeB[f, g] >=  bisognoB[g] + surplusB[g];
+
+subject to disponibilitaA { f in FornitoriA, g in Giorni } :  ambulanzeA[f, g] <= maxA[f];
+subject to disponibilitaB { f in FornitoriB, g in Giorni } :  ambulanzeB[f, g] <= maxB[f]; 
+
+subject to attivazioneA { f in FornitoriA, g in Giorni } : ambulanzeA[f, g] <= BigM * attivazioneSettimanaleA[f];
+subject to attivazioneB { f in FornitoriB, g in Giorni } : ambulanzeB[f, g] <= BigM * attivazioneSettimanaleB[f]; 
+
+\end{lstlisting}
