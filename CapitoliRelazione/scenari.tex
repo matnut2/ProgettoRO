@@ -1,143 +1,197 @@
+\textbf{Premessa: } dato che negli scenari proposti gli insiemi non variano, questi saranno di seguito presentati una sola volta.
+Gli insiemi sono così definiti: \newline \vspace*{0.1 cm} \newline
+\begin{tabular}{|| c || c c c c c c c ||}
+    \hline
+    Giorni & lunedi & martedi & mercoledi & giovedi & venerdi & sabato & domenica \\ 
+    \hline
+\end{tabular}
+\newline
+\vspace*{0.3 cm}
+\newline
+\begin{tabular}{|| c || c c c ||}
+    \hline
+        FornitoriA & rossa & verde & interna \\
+    \hline
+    
+\end{tabular}
+\newline
+\vspace*{0.3 cm}
+\newline
+\begin{tabular}{|| c || c c c ||}
+    \hline
+        FornitoriA & bianca & verde & interna \\
+    \hline
+    
+\end{tabular}
+
 \subsection{Primo Scenario}
 \subsubsection{Descrizione}
 In questo primo scenario, i dati sono stati inseriti manualmente, con un numero di ambulanze necessarie tale da permettere di trovare una soluzione ottima.
-\subsubsection{Codice}
-\begin{lstlisting}
-### INSIEMI ###
-set Giorni := lunedi martedi mercoledi giovedi venerdi sabato domenica;
-set FornitoriA := rossa verde interna;
-set FornitoriB := bianca verde interna;
+\subsubsection{Dati}
+\begin{tabular}{| c | c |}
+    \hline
+    \multicolumn{2}{|c|}{BisognoA}\\
+    \hline \hline
+    lunedi & 20 \\
+    martedi & 22 \\
+    mercoledi & 10 \\
+    giovedi & 20 \\
+    venerdi & 30 \\
+    sabato & 30 \\
+    domenica & 15 \\
+    \hline
+\end{tabular}
+\begin{tabular}{| c | c |}
+    \hline
+    \multicolumn{2}{|c|}{BisognoB}\\
+    \hline \hline
+    lunedi & 3 \\
+    martedi & 5 \\
+    mercoledi & 2 \\
+    giovedi & 3 \\
+    venerdi & 4 \\
+    sabato & 2 \\
+    domenica & 0 \\
+    \hline
+\end{tabular}
+\begin{tabular}{| c | c |}
+    \hline
+    \multicolumn{2}{|c|}{surplusA}\\
+    \hline \hline
+    lunedi & 3 \\
+    martedi & 3 \\
+    mercoledi & 3 \\
+    giovedi & 2 \\
+    venerdi & 5 \\
+    sabato & 6 \\
+    domenica & 4 \\
+    \hline
+\end{tabular}
+\begin{tabular}{| c | c |}
+    \hline
+    \multicolumn{2}{|c|}{surplusB}\\
+    \hline \hline
+    lunedi & 1 \\
+    martedi & 3 \\
+    mercoledi & 1 \\
+    giovedi & 1 \\
+    venerdi & 2 \\
+    sabato & 1 \\
+    domenica & 1 \\
+    \hline
+\end{tabular}
+\begin{tabular}{| c | c |}
+    \hline
+    \multicolumn{2}{|c|}{maxA}\\
+    \hline \hline
+    rossa & 15 \\
+    verde & 30 \\
+    interna & 3 \\
+    \hline    
+\end{tabular}
+\begin{tabular}{| c | c |}
+    \hline
+    \multicolumn{2}{|c|}{maxB} \\
+    \hline \hline
+    bianca & 5 \\
+    verde & 10 \\
+    interna & 8 \\
+    \hline    
+\end{tabular}
+\begin{tabular}{| c | c |}
+    \hline
+    \multicolumn{2}{|c|}{costoGiornalieroA}\\
+    \hline \hline
+    rossa & 15 \\
+    verde & 18 \\
+    interna & 8 \\
+    \hline    
+\end{tabular}
+\begin{tabular}{| c | c |}
+    \hline
+    \multicolumn{2}{|c|}{costoGiornalieroB} \\
+    \hline \hline
+    bianca & 20 \\
+    verde & 12 \\
+    interna & 5 \\
+    \hline    
+\end{tabular}
+\begin{tabular}{| c | c |}
+    \hline
+    \multicolumn{2}{|c|}{costoAttivazioneA}\\
+    \hline \hline
+    rossa & 130 \\
+    verde & 50 \\
+    interna & 0 \\
+    \hline    
+\end{tabular}
+\begin{tabular}{| c | c |}
+    \hline
+    \multicolumn{2}{|c|}{costoAttivazioneB} \\
+    \hline \hline
+    bianca & 70 \\
+    verde & 55 \\
+    interna & 0 \\
+    \hline    
+\end{tabular}
 
-### PARAMETRI ###
-param bisognoA := 
-lunedi 20 martedi 22 mercoledi 10 
-giovedi 20 venerdi 30 sabato 30
-domenica 15
-;
 
-param bisognoB := 
-lunedi 3 martedi 5 mercoledi 2
-giovedi 3 venerdi 4 sabato 2
-domenica 0
-;
-
-param surplusA :=
-lunedi 3 martedi 3 mercoledi 3
-giovedi 2 venerdi 5 sabato 6
-domenica 4
-;
-
-param surplusB :=
-lunedi 1 martedi 3 mercoledi 1
-giovedi 1 venerdi 2 sabato 1
-domenica 1
-;
-
-param maxA :=
-rossa 15 verde 20 interna 3
-;
-
-param maxB :=
-bianca 5 verde 10 interna 8
-;
-
-param costoGiornalieroA :=
-rossa 15 verde 18 interna 8
-;
-
-param costoGiornalieroB :=
-bianca 20 verde 12 interna 5
-;
-
-param costoAttivazioneA :=
-rossa 130 verde 50 interna 0
-;
-
-param costoAttivazioneB :=
-bianca 70 verde 55 interna 0
-; 
-
-param BigM := 64;
-\end{lstlisting}
 \subsubsection{Output}
 L'esecuzione del file \textbf{.run} mostra che il costo minimo è di \texteuro$2929$.
 
 \subsection{Secondo Scenario}
 \subsubsection{Descrizione}
-Il secondo set di dati è stato costruito manualmente con una richiesta di ambulanze non soddisfacibile, impedendo quindi di trovare una soluzione.
-\subsubsection{Codice}
-\begin{lstlisting}
-### INSIEMI ###
-set Giorni := lunedi martedi mercoledi giovedi venerdi sabato domenica;
-set FornitoriA := rossa verde interna;
-set FornitoriB := bianca verde interna;
-
-### PARAMETRI ###
-param bisognoA := 
-lunedi 150 martedi 22 mercoledi 10 
-giovedi 20 venerdi 30 sabato 30
-domenica 15
-;
-
-param bisognoB := 
-lunedi 65 martedi 5 mercoledi 2
-giovedi 3 venerdi 4 sabato 2
-domenica 0
-;
-
-param surplusA :=
-lunedi 3 martedi 3 mercoledi 3
-giovedi 2 venerdi 5 sabato 6
-domenica 4
-;
-
-param surplusB :=
-lunedi 1 martedi 3 mercoledi 1
-giovedi 1 venerdi 2 sabato 1
-domenica 1
-;
-
-param maxA :=
-rossa 15 verde 20 interna 3
-;
-
-param maxB :=
-bianca 5 verde 10 interna 8
-;
-
-param costoGiornalieroA :=
-rossa 15 verde 18 interna 8
-;
-
-param costoGiornalieroB :=
-bianca 20 verde 12 interna 5
-;
-
-param costoAttivazioneA :=
-rossa 130 verde 50 interna 0
-;
-
-param costoAttivazioneB :=
-bianca 70 verde 55 interna 0
-; 
-
-param BigM := 256;
-\end{lstlisting}
+Il secondo set di dati differisce dal primo solo per la richiesta di ambulanze sia di tipo A che di tipo B per il lunedi che non è soddisfacibile. Per questo motivo, nel prossimo paragrafo saranno riportati solo i parametri modificati.
+\subsubsection{Dati}
+\begin{tabular}{| c | c |}
+    \hline
+    \multicolumn{2}{|c|}{BisognoA}\\
+    \hline \hline
+    lunedi & 150 \\
+    martedi & 22 \\
+    mercoledi & 10 \\
+    giovedi & 20 \\
+    venerdi & 30 \\
+    sabato & 30 \\
+    domenica & 15 \\
+    \hline
+\end{tabular}
+\begin{tabular}{| c | c |}
+    \hline
+    \multicolumn{2}{|c|}{BisognoB}\\
+    \hline \hline
+    lunedi & 65 \\
+    martedi & 5 \\
+    mercoledi & 2 \\
+    giovedi & 3 \\
+    venerdi & 4 \\
+    sabato & 2 \\
+    domenica & 0 \\
+    \hline
+\end{tabular}
+\begin{tabular}{| c | c |}
+    \hline
+    \multicolumn{2}{|c|}{maxA}\\
+    \hline \hline
+    rossa & 15 \\
+    verde & 30 \\
+    interna & 3 \\
+    \hline    
+\end{tabular}
+\begin{tabular}{| c | c |}
+    \hline
+    \multicolumn{2}{|c|}{maxB} \\
+    \hline \hline
+    bianca & 5 \\
+    verde & 10 \\
+    interna & 8 \\
+    \hline    
+\end{tabular}
 \subsubsection{Output}
 Ovviamente, il costo minimo trovato eseguendo il file \textbf{.run} sarà pari a \texteuro$0$.
 
 \subsection{Terzo Scenario}
 \subsubsection{Descrizione}
-Nel terzo scenario sono stati definiti soltanto gli insiemi, così da poter sfruttare i valori di default.
-\subsubsection{Codice}
-\begin{lstlisting}
-### INSIEMI ###
-set Giorni := lunedi martedi mercoledi giovedi venerdi sabato domenica;
-set FornitoriA := rossa verde interna;
-set FornitoriB := bianca verde interna;
-
-### PARAMETRI ###
-# Non definiti per test valori di default
-\end{lstlisting}
+Nel terzo scenario sono stati definiti soltanto gli insiemi, così da poter sfruttare i valori di default. Per questo motivo non verrà riportato il valore dei vari parametri in questo specificato nel modello.
 \subsubsection{Output}
 Eseguendo il file \textbf{.run} dedicato, utilizzando quindi i dati di default, il costo minimo risulta essere di \texteuro$350$.
