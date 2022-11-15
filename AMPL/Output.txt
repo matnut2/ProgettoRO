@@ -1,9 +1,9 @@
 --------------------------------------------
 --------------------------------------------
- Risultati Esecuzione 1 - Gestione Ambulanze
+ Risultati Esecuzione - Gestione Ambulanze
 --------------------------------------------
 --------------------------------------------
-Tempo di esecuzione: 0.016 s
+Tempo di esecuzione: 0.031 s
 
 --------------------
 - Parametri in uso - 
@@ -87,11 +87,9 @@ verde   domenica        1         0
 ----------------
 costo = 2929
 
-
-
 --------------------------------------------
 --------------------------------------------
- Risultati Esecuzione 2 - Gestione Ambulanze
+ Risultati Esecuzione - Gestione Ambulanze
 --------------------------------------------
 --------------------------------------------
 Tempo di esecuzione: 0.000 s
@@ -134,56 +132,15 @@ verde            50               55
 --------------------
 - Stampa Risultati - 
 --------------------
-:       attivazioneSettimanaleA attivazioneSettimanaleB    :=
-bianca              .                       0
-interna             1                       0
-rossa               1                       .
-verde               1                       0
-;
-
-:                 ambulanzeA ambulanzeB    :=
-bianca  lunedi          .         0
-bianca  martedi         .         0
-bianca  mercoledi       .         0
-bianca  giovedi         .         0
-bianca  venerdi         .         0
-bianca  sabato          .         0
-bianca  domenica        .         0
-interna lunedi         0          0
-interna martedi        0          0
-interna mercoledi      0          0
-interna giovedi        0          0
-interna venerdi        0          0
-interna sabato         0          0
-interna domenica       0          0
-rossa   lunedi         0           .
-rossa   martedi        0           .
-rossa   mercoledi      0           .
-rossa   giovedi        0           .
-rossa   venerdi        0           .
-rossa   sabato         0           .
-rossa   domenica       0           .
-verde   lunedi         0          0
-verde   martedi        0          0
-verde   mercoledi      0          0
-verde   giovedi        0          0
-verde   venerdi        0          0
-verde   sabato         0          0
-verde   domenica       0          0
-;
-
-
-----------------
-- Costo Minimo - 
-----------------
-costo = 180
+--- PROBLEMA NON RISOLVIBILE ---
+-> Codice Errore: solve_result_num = 299
 
 --------------------------------------------
 --------------------------------------------
- Risultati Esecuzione 3 - Gestione Ambulanze
+ Risultati Esecuzione - Gestione Ambulanze
 --------------------------------------------
 --------------------------------------------
-Tempo di esecuzione: 2.703 s
+Tempo di esecuzione: 0.047 s
 
 --------------------
 - Parametri in uso - 

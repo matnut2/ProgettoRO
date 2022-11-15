@@ -19,7 +19,7 @@ printf "Tempo di esecuzione: %.3f s\n", _total_solve_time;
 
 printf "\n--------------------\n";  
 printf "- Parametri in uso - \n";
-printf "--------------------\n";    
+printf "--------------------\n";  
 
 display bisognoA, surplusA, bisognoB, surplusB;
 
@@ -31,6 +31,15 @@ printf "\n--------------------\n";
 printf "- Stampa Risultati - \n";
 printf "--------------------\n"; 
 
+if match(solve_result, "infeasible") then {
+printf "--- PROBLEMA NON RISOLVIBILE ---\n";
+printf "-> Codice Errore: ";
+display solve_result_num;
+
+
+}
+else {
+
 display attivazioneSettimanaleA, attivazioneSettimanaleB;
 display ambulanzeA, ambulanzeB;
 
@@ -38,6 +47,6 @@ printf "\n----------------\n";
 printf "- Costo Minimo - \n";
 printf "----------------\n"; 
 display costo;
-
+}
 #expand;		## Decommentare la riga per espandere il modello
 
