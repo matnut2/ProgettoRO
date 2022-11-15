@@ -11,17 +11,28 @@ set FornitoriA;         # Fornitori di ambulanze di tipo A
 set FornitoriB;         # Fornitori di ambulanze di tipo B
 
 ### PARAMETRI ###
-param bisognoA { Giorni } >= 0 integer default 0;           # Fabbisogno giornaliero di ambulanze di tipo A (escluso surplus arbitrario)
-param bisognoB { Giorni } >= 0 integer default 0;           # Fabbisogno giornaliero di ambulanze di tipo B (escluso surplus arbitrario)
-param surplusA { Giorni } >= 2 integer default 2;           # Ambulanze di tipo A "di scorta"
-param surplusB { Giorni } >= 1 integer default 1;           # Ambulanze di tipo B "di scorta"
-param maxA { FornitoriA } >= 0 integer default 15;          # Numero massimo di ambulanze di tipo A che un fornitore puo' fornire
-param maxB { FornitoriB } >= 0 integer default 5;           # Numero massimo di ambulanze di tipo B che un fornitore puo' fornire
-param costoGiornalieroA { FornitoriA } > 0 default 10;      # Costo per l'attivazione giornaliera di una ambulanza di tipo A in base al fornitore
-param costoGiornalieroB { FornitoriB } > 0 default 5;       # Costo per l'attivazione giornaliera di una ambulanza di tipo B in base al fornitore
-param costoAttivazioneA { FornitoriA } >= 0 default 100;    # Costo per l'attivazione settimanale di una ambulanza di tipo A in base al fornitore (da pagare una sola volta a settimana in caso di attivazione del fornitore)
-param costoAttivazioneB { FornitoriB } >= 0 default 75;     # Costo per l'attivazione settimanale di una ambulanza di tipo B in base al fornitore (da pagare una sola volta a settimana in caso di attivazione del fornitore)
-param BigM >= 0 integer default 500;                        # BigM per vincoli di tipo logico
+# Fabbisogno Giornaliero di Ambulanze
+param bisognoA { Giorni } >= 0 integer default 0;           
+param bisognoB { Giorni } >= 0 integer default 0;
+
+# Ambulanze "di Scorta"
+param surplusA { Giorni } >= 2 integer default 2;           
+param surplusB { Giorni } >= 1 integer default 1;
+
+# Numero Massimo Giornaliero di Ambulanze Attiviabili da un Fornitore 
+param maxA { FornitoriA } >= 0 integer default 15;
+param maxB { FornitoriB } >= 0 integer default 5;
+
+# Costo per l'Attivazione Giornaliero di una Ambulanza
+param costoGiornalieroA { FornitoriA } > 0 default 10;
+param costoGiornalieroB { FornitoriB } > 0 default 5;
+
+# Costo per l'Attivazione Settimanale di una Ambulanza (da pagare una sola volta in caso di attivazione del fornitore per la determinata settimana)
+param costoAttivazioneA { FornitoriA } >= 0 default 100;
+param costoAttivazioneB { FornitoriB } >= 0 default 75;
+
+# BigM per vincoli di tipo logico
+param BigM >= 0 integer default 500;
 
 ### VARIABILI ###
 var ambulanzeA { fa in FornitoriA, ga in Giorni } integer >= 0;     # Numero di ambulanze di tipo A fornite dal fornitore fa il giorno ga 
