@@ -1,5 +1,6 @@
 \subsection{Output su File}
-All'interno della cartella \textbf{AMPL} si può trovare un file denominato \textit{Ospedale.GenerateOutputFile.run} che esegue in serie tutti e tre gli scenari sopracitati e, tramite un secondo file \textit{.run} di supporto denominato GenerateOutput.run, ne salva l'output in un file dedicato chiamato \textit{Output.txt}.
+All'interno della cartella \textbf{AMPL} si può trovare un file denominato \textit{Ospedale.GenerateOutputFile.run} che esegue in serie tutti e tre gli scenari sopracitati e, tramite un secondo file \textit{.run} di supporto denominato \textit{GenerateOutput.run}, ne salva l'output in un file dedicato chiamato \textit{Output.txt}.
 Per fare ciò, sono sono stati utilizzati gli operatori $>$ e $>>$. Il primo serve a creare un nuovo file (o a ripulirlo se già esistente) e scriverci l'istruzione della stessa linea; il secondo serve invece per aprire il file e fare un \textit{append} dell'istruzione di riferimento.
 
 \subsection{Stampa Personalizzata per Problema Non Risolvibile}
+All'interno dei file \textit{Ospedale.xxx.run} dove \textit{xxx} indica il numero del caso preso in esame o il file dedicato alla stampa, c'è un \textit{if-then-else statement} che, utilizzando il valore della variabile di stato \textit{solve\_result}, determina se un problema è risolvibile o meno e modifica l'output di conseguenza. Nel caso il problema non fosse risolvibile, tramite la variabile \textit{solve\_result\_num}, indica il codice che idenitifica la non risolvibilità del problema.
