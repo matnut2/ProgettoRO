@@ -12,7 +12,6 @@ Gli insiemi sono così definiti: \newline \vspace*{0.1 cm} \newline
     \hline
         FornitoriA & rossa & verde & interna \\
     \hline
-    
 \end{tabular}
 \newline
 \vspace*{0.3 cm}
@@ -21,7 +20,6 @@ Gli insiemi sono così definiti: \newline \vspace*{0.1 cm} \newline
     \hline
         FornitoriA & bianca & verde & interna \\
     \hline
-    
 \end{tabular}
 
 \subsection{Primo Scenario}
@@ -137,10 +135,8 @@ In questo primo scenario, i dati sono stati inseriti manualmente, con un numero 
     \hline    
 \end{tabular}
 \end{center}
-
-
 \subsubsection{Output}
-L'esecuzione del file \textbf{.run} mostra che il costo minimo è di \texteuro$2929$.
+L'esecuzione del file \textbf{.run} mostra che il costo minimo è di \texteuro$2929$. Per quanto riguarda l'attivazione delle ambulanze di tipo A, sono state attivate solo le ambulanze interne (dato che avevano un costo di attivazione settimanale e giornaliera molto inferiore rispetto alle OdV) e la Croce Rossa. Parlando invece delle ambulanze di tipo B sono state attivate solo quelle interne in quanto sono abbastanza per coprire il fabbisogno giornaliero garantendo il costo minore.
 
 \subsection{Secondo Scenario}
 \subsubsection{Descrizione}
@@ -193,7 +189,7 @@ Il secondo set di dati differisce dal primo solo per la richiesta di ambulanze s
 \end{tabular}
 \end{center}
 \subsubsection{Output}
-Ovviamente, il costo minimo trovato eseguendo il file \textbf{.run} sarà pari a \texteuro$0$.
+Ovviamente, il costo minimo trovato eseguendo il file \textbf{.run} sarà pari a \texteuro$0$. La non risolvibilità del problema è data dal fatto che l'insieme delle ambulanze di tipo A ($38$) e di tipo B ($23$) non sono abbastanza per coprire il fabbisogno del lunedì (rispettivamente di $153$ ambulanze di tipo A e $66$ ambulanze di tipo B).
 
 \subsection{Terzo Scenario}
 \subsubsection{Descrizione}
