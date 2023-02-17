@@ -8,6 +8,7 @@
 reset;
 model OspedalePadova2.mod;
 data Ospedale.2.1.dat;
+option solver cplex;
 
 solve;
 
@@ -26,7 +27,7 @@ display addSurplus;
 
 display maxAmbulanze;
 display costoGiornaliero;
-display costoAttivazioneSettimanale, costoAttivazioneTipo;
+display costoAttivazioneSettimanale;
 
 printf "\n--------------------\n";  
 printf "- Stampa Risultati - \n";
@@ -41,7 +42,7 @@ display solve_result_num;
 }
 else {
 
-display attivazioneSettimanale, attivazioneSettimanaleTipo;
+display attivazioneSettimanale;
 display attivazioneGiornaliera;
 display ambulanze;
 display ambulanzeSurplus;
