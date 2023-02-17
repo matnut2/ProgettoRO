@@ -9,6 +9,7 @@ reset;
 model OspedalePadova2.mod;
 data Ospedale.2.1.dat;
 option solver cplex;
+option presolve 0;
 
 solve;
 
