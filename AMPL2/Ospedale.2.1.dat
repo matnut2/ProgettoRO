@@ -28,9 +28,16 @@ rossa							0			10
 verde							7			15
 ;
 
-param costoAttivazione (tr): trasporto emergenza :=
+param costoAttivazioneTipo (tr): trasporto emergenza :=
 interna							0			0
 bianca							30			0
 rossa							0			30
 verde							25			25
+;
+
+param costoAttivazioneSettimanale :=
+interna		0
+bianca		150
+rossa		130
+verde		170
 ;
