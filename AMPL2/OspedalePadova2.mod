@@ -64,8 +64,8 @@ subject to disponibilita { t in Tipo, f in Fornitori, g in Giorni } : ambulanze[
 # Vincolo Logico per l'Attivazione Settimanale di un Fornitore in Base al Tipo di Ambulanze Fornite
 subject to attivazioneSettimanaleFornitoreTipo { t in Tipo, f in Fornitori, g in Giorni } : ambulanze[t, f, g] <= BigM * attivazioneSettimanaleTipo[t, f];
 
-# Vincolo Logico per l'Attivazione Settimanale di un Fornitore Indipendentemente dal Tipo di Ambulanza Attivata
+# Vincolo Logico per l'Attivazione Settimanale di un Fornitore Indipendentemente dal Tipo di Ambulanza Attivata (Vincolo 2.1)
 subject to attivazioneSettimanaleFornitore { t in Tipo, f in Fornitori, g in Giorni } :  ambulanze[t, f, g] <= BigM * attivazioneSettimanale[f];
 
-# Collegamento dei Due Vincoli Precedenti (if attivazioneSettimanale == 0 -> attivazioneSettimanale = 0)
+# Collegamento dei Due Vincoli Precedenti (if attivazioneSettimanale == 0 -> attivazioneSettimanale = 0) (Vincolo 2.1)
 subject to collegamento { t in Tipo, f in Fornitori } : attivazioneSettimanaleTipo[t, f] <= attivazioneSettimanale[f];
