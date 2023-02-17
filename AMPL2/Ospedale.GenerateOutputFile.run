@@ -1,0 +1,10 @@
+printf "" > Output.txt;
+include Ospedale.1.run;
+include GenerateOutput.run;
+
+include Ospedale.2.run;
+include GenerateOutput.run;
+
+include Ospedale.3.run;
+include GenerateOutput.run;
+close("Output.txt");

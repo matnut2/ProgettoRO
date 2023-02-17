@@ -1,0 +1,14 @@
+# ==============================
+#          Dati AMPL
+#      Ricerca operativa
+#        Soldà Matteo
+#           (2022)
+# ==============================
+
+### INSIEMI ###
+set Giorni := lunedi martedi mercoledi giovedi venerdi sabato domenica;
+set FornitoriA := rossa verde interna;
+set FornitoriB := bianca verde interna;
+
+### PARAMETRI ###
+# Non definiti per test valori di default
