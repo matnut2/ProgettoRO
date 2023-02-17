@@ -40,7 +40,7 @@ var attivazioneSettimanaleTipo{ t in Tipo, f in Fornitori } binary;
 var attivazioneSettimanale{ f in Fornitori } binary;
 
 # Variabile Logica per l'Attivazione Giornaliera di un Determinato Fornitore in un Determinato Giorno (Indistintamente dal Tipo di Ambulanza) (Vincolo 2.3)
-var attivazioneGiornaliera{t in Tipo, f in Fornitori, g in Giorni } binary;
+var attivazioneGiornaliera{f in Fornitori, g in Giorni } binary;
 
 ### FUNZIONE OBIETTIVO ###
 minimize costo:
@@ -72,7 +72,7 @@ subject to attivazioneSettimanaleFornitore { t in Tipo, f in Fornitori, g in Gio
 subject to collegamento { t in Tipo, f in Fornitori } : attivazioneSettimanaleTipo[t, f] <= attivazioneSettimanale[f];
 
 # Vincolo Logico per l'Attivazione di Almeno 3 Fornitori in un Giorno (Indipendentemente dal Tipo di Ambulanza) (Vincolo 2.3) + Vincoli Derivanti
-subject to attivazioneMinima {t in Tipo, g in Giorni } : sum{ f in Fornitori } attivazioneGiornaliera[t, f, g] >= 3;
-subject to collegamento2 {t in Tipo, f in Fornitori, g in Giorni} : attivazioneGiornaliera[t, f, g] <= attivazioneSettimanale[f];
-subject to attivazioniGiornaliere {t in Tipo, f in Fornitori, g in Giorni } : ambulanze[t, f, g] + ambulanzeSurplus[t, f, g] <= BigM* attivazioneGiornaliera[t, f, g];
-subject to attivazioneMinima_attivazione {t in Tipo, f in Fornitori, g in Giorni } : ambulanze[t, f, g] + ambulanzeSurplus[t, f, g] > attivazioneGiornaliera[t, f, g];
+subject to attivazioneMinima { g in Giorni } : sum{ f in Fornitori } attivazioneGiornaliera[f, g] >= 3;
+subject to collegamento2 {f in Fornitori, g in Giorni} : attivazioneGiornaliera[f, g] <= attivazioneSettimanale[f];
+subject to attivazioniGiornaliere { f in Fornitori, g in Giorni } : sum{ t in Tipo} (ambulanze[t, f, g] + ambulanzeSurplus[t, f, g]) <= BigM * attivazioneGiornaliera[f, g];
+#subject to attivazioneMinima_attivazione { f in Fornitori, g in Giorni } :sum( t in Tipo}( ambulanze[t, f, g] + ambulanzeSurplus[t, f, g]) >= attivazioneGiornaliera[f, g];

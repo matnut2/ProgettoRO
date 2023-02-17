@@ -8,8 +8,6 @@
 reset;
 model OspedalePadova2.mod;
 data Ospedale.2.1.dat;
-option solver cplex;
-option cplex_option "iisfind=2";
 
 solve;
 
