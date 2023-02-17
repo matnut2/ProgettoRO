@@ -39,9 +39,9 @@ var attivazioneSettimanale{ f in Fornitori } binary;
 minimize costo:
 	# Ambulanze Attivate
 	(sum{ t in Tipo, f in Fornitori, g in Giorni } ambulanze[t, f, g] * costoGiornaliero[t, f]) +
-	# Costo di Attivazione Settimanale (Differente per Tipo di Ambulanza Attivata 
+	# Costo di Attivazione Settimanale (Differente per Tipo di Ambulanza Attivata) 
 	(sum{ t in Tipo, f in Fornitori} attivazioneSettimanaleTipo[t, f] * costoAttivazioneTipo[t, f]) +
-	#
+	# Costo di Attivazione Settimanale (Indifferentemente dal Tipo di Ambulanza Attivata)
 	(sum{ f in Fornitori } attivazioneSettimanale[f] * costoAttivazioneSettimanale[f])		
 	;
 
@@ -53,11 +53,10 @@ subject to necessitaGiornaliera { t in Tipo, g in Giorni } : sum{ f in Fornitori
 subject to disponibilita { t in Tipo, f in Fornitori, g in Giorni } : ambulanze[t, f, g] <= maxAmbulanze[t, f];
 
 # Vincolo Logico per l'Attivazione Settimanale di un Fornitore in Base al Tipo di Ambulanze Fornite
-subject to attivazioneSettimanaleFornitoreTipo { t in Tipo, f in Fornitori, g in Giorni } : ambulanze[t, f, g] <= BigM * attivazioneSettimanale[t, f];
+subject to attivazioneSettimanaleFornitoreTipo { t in Tipo, f in Fornitori, g in Giorni } : ambulanze[t, f, g] <= BigM * attivazioneSettimanaleTipo[t, f];
 
 # Vincolo Logico per l'Attivazione Settimanale di un Fornitore Indipendentemente dal Tipo di Ambulanza Attivata
 subject to attivazioneSettimanaleFornitore { t in Tipo, f in Fornitori, g in Giorni } :  ambulanze[t, f, g] <= BigM * attivazioneSettimanale[f];
 
-
-# Collegamento dei Due Vincoli Precedenti (if attivazioneSettimanale == 0 -> attivazioneSettimanale == 0 &&
-subject to collegamento { t in Tipo, f in Fornitori } : attivazioneSettimanale[t, f] <= attivazioneSettimanale[f];
+# Collegamento dei Due Vincoli Precedenti (if attivazioneSettimanale == 0 -> attivazioneSettimanale = 0)
+subject to collegamento { t in Tipo, f in Fornitori } : attivazioneSettimanaleTipo[t, f] <= attivazioneSettimanale[f];
