@@ -16,6 +16,9 @@ param maxAmbulanze{ Tipo, Fornitori };
 # Costo Giornaliero per una Ambulanza di un Determinato Tipo di un Determinato Fornitore
 param costoGiornaliero{ Tipo, Fornitori }; 
 
+# Aumento Percentuale per Servizio in Surplus (Vincolo 2.2)
+param addSurplus{ Fornitori };
+
 # Costo di Attivazione Settimanale per una Ambulanza di un Determinato Tipo di un Determinato Fornitore
 param costoAttivazioneTipo{ Tipo, Fornitori };
 
@@ -26,8 +29,9 @@ param costoAttivazioneSettimanale{ Fornitori };
 param BigM > 0 integer default 500;
 
 ### VARIABILI ###
-# Ambulanze di Tipo t del Fornitore f Attivate il Giorno g
+# Ambulanze di Tipo t del Fornitore f Attivate il Giorno g (+ Vincolo 2.2)
 var ambulanze{ t in Tipo, f in Fornitori, g in Giorni } >= 0 integer; 
+var ambulanzeSurplus{ t in Tipo, f in Fornitori, g in Giorni } >= 0 integer;
 
 # Variabile Logica per l'Attivazione Settimanale del Fornitore f per le Ambulanze di Tipo t
 var attivazioneSettimanaleTipo{ t in Tipo, f in Fornitori } binary;
@@ -37,17 +41,22 @@ var attivazioneSettimanale{ f in Fornitori } binary;
 
 ### FUNZIONE OBIETTIVO ###
 minimize costo:
-	# Ambulanze Attivate
+	# Ambulanze Standard Attivate
 	(sum{ t in Tipo, f in Fornitori, g in Giorni } ambulanze[t, f, g] * costoGiornaliero[t, f]) +
+	# Ambulanze Surplus Attivate (Vincolo 2.2)
+	(sum{ t in Tipo, f in Fornitori, g in Giorni } (ambulanze[t, f, g] * costoGiornaliero[t, f] + 
+								  ambulanze[t, f, g] * costoGiornaliero[t, f] * addSurplus[f])) +
 	# Costo di Attivazione Settimanale (Differente per Tipo di Ambulanza Attivata) 
-	(sum{ t in Tipo, f in Fornitori} attivazioneSettimanaleTipo[t, f] * costoAttivazioneTipo[t, f]) +
-	# Costo di Attivazione Settimanale (Indifferentemente dal Tipo di Ambulanza Attivata)
+	(sum{ t in Tipo, f in Fornitori } attivazioneSettimanaleTipo[t, f] * costoAttivazioneTipo[t, f]) +
+	# Costo di Attivazione Settimanale (Indifferentemente dal Tipo di Ambulanza Attivata) (Vincolo 2.1)
 	(sum{ f in Fornitori } attivazioneSettimanale[f] * costoAttivazioneSettimanale[f])		
 	;
 
 ### VINCOLI ###
-# Vincolo per la Necessita' Giornaliera
-subject to necessitaGiornaliera { t in Tipo, g in Giorni } : sum{ f in Fornitori } ambulanze[t, f, g] >= bisogno[g, t] + surplus[g, t];
+# Vincolo per la Necessita' Giornaliera (+ Vincolo 2.1)
+subject to necessitaGiornaliera { t in Tipo, g in Giorni } : sum{ f in Fornitori } ambulanze[t, f, g] >= bisogno[g, t];
+subject to necessitaGiornalieraSurplus {t in Tipo, g in Giorni} : sum{ f in Fornitori } ambulanzeSurplus[t, f, g] >= surplus[g, t];
+subject to maxDisponibilita {t in Tipo, f in Fornitori, g in Giorni } : ambulanze[t, f, g] + ambulanzeSurplus[t, f, g] <= maxAmbulanze[t, f]; 
 
 # Vincolo per la Disponibilita' dei Fornitori
 subject to disponibilita { t in Tipo, f in Fornitori, g in Giorni } : ambulanze[t, f, g] <= maxAmbulanze[t, f];

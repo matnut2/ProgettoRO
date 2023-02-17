@@ -28,6 +28,13 @@ rossa							0			10
 verde							7			15
 ;
 
+param addSurplus :=
+interna 	0
+bianca		0.75
+rossa		0.90
+verde		1.25
+;
+
 param costoAttivazioneTipo (tr): trasporto emergenza :=
 interna							0			0
 bianca							30			0
