@@ -9,6 +9,8 @@ reset;
 model OspedalePadova2.mod;
 data Ospedale.2.1.dat;
 option solver cplex;
+option cplex_option "iisfind=2";
+
 solve;
 
 ### OUTPUT ###
@@ -42,6 +44,7 @@ display solve_result_num;
 else {
 
 display attivazioneSettimanale, attivazioneSettimanaleTipo;
+display attivazioneGiornaliera;
 display ambulanze;
 display ambulanzeSurplus;
 
