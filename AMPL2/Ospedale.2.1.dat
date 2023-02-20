@@ -21,6 +21,13 @@ rossa						0			7
 verde						5			9
 ;
 
+param maxGiorni (tr):	trasporto emergenza :=
+interna						7			7
+bianca						4			0
+rossa						0			4
+verde						4			4
+;
+
 param costoGiornaliero (tr) : trasporto emergenza :=
 interna							5			8
 bianca							10			0

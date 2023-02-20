@@ -26,7 +26,7 @@ printf "--------------------\n";
 display bisogno, surplus;
 display addSurplus;
 
-display maxAmbulanze;
+display maxAmbulanze, maxGiorni;
 display costoGiornaliero;
 display costoAttivazioneSettimanale;
 
