@@ -77,3 +77,9 @@ subject to attivazioniGiornaliere { t in Tipo, f in Fornitori, g in Giorni } :(a
 
 # Vincolo che Limita l'Attivazione dei Fornitori nell'Arco della Settimana (Considerando il Tipo di Ambulanza)
 subject to massimaAttivazione { t in Tipo, f in Fornitori} : sum{g in Giorni} attivazioneGiornaliera[t, f, g] <= maxGiorni[t, f];
+
+# Vincolo di Fairness
+subject to fairnessOnWork { g in Giorni } : 
+	sum {t in Tipo, f in Fornitori} (ambulanze[t, f, g] + ambulanzeSurplus[t, f, g]) 
+	<= 
+	sum { t in Tipo, f in Fornitori }( 1 / card(Fornitori))* sum{ f2 in Fornitori} (ambulanze[t, f2, g] + ambulanzeSurplus[t, f2, g]);

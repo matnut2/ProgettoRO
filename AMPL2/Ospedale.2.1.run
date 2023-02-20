@@ -24,10 +24,9 @@ printf "- Parametri in uso - \n";
 printf "--------------------\n";  
 
 display bisogno, surplus;
-display addSurplus;
 
 display maxAmbulanze, maxGiorni;
-display costoGiornaliero;
+display costoGiornaliero, addSurplus;
 display costoAttivazioneSettimanale;
 
 printf "\n--------------------\n";  
