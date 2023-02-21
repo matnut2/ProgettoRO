@@ -1,37 +1,34 @@
 \subsection{Insiemi}
 \begin{itemize}
     \item $Giorni$: giorni della settimana in cui è attivo il servizio
-    \item $FornitoriA$: fornitori che dispongono di ambulanze di tipo A da attivare
-    \item $FornitoriB$: fornitori che dispongono di ambulanze di tipo B da attivare
+    \item $Fornitori$: fornitori che possono fornire ambulanze
+    \item $Tipo$: tipi di ambulanze disponibili (indica la destinazione d'uso del mezzo nel conteso)
 \end{itemize}
 \subsection{Parametri}
 \begin{itemize}
-    \item $bisognoA_{g}$: fabbisogno per il giorno $g$ di ambulanze di tipo A (escluso surplus arbitrario)
-    \item $bisognoB_{g}$: fabbisogno per il giorno $g$ di ambulanze di tipo B (escluso surplus arbitrario)
-    \item $surplusA_{g}$: surplus di ambulanze di tipo A per il giorno $g$
-    \item $surplusB_{g}$: surplus di ambulanze di tipo B per il giorno $g$
-    \item $maxA_{fa}$: numero massimo di ambulanze di tipo A che il fornitore $fa$ può fornire in un giorno
-    \item $maxB_{fb}$: numero massimo di ambulanze di tipo B che il fornitore $fb$ può fornire in un giorno
-    \item $costoGiornalieroA_{fa}$: costo per l'attivazione giornaliera per una singola ambulanza di tipo A del fornitore $fa$
-    \item $costoGiornalieroB_{fb}$: costo per l'attivazione giornaliera per una singola ambulanza di tipo B del fornitore $fb$
-    \item $costoAttivazioneA_{fa}$: costo settimanale per l'attivazione di un fornitore $fa$ per la fornitura settimanale di ambulanze di tipo A
-    \item $costoAttivazioneB_{fb}$: costo settimanale per l'attivazione di un fornitore $fb$ per la fornitura settimanale di ambulanze di tipo B
-    \item $BigM$: utilizzato per vincolare l'utilizzo delle ambulanze rispetto all'attivazione del fornitore (costante sufficientemente grande). Questo, nei file \textbf{.dat} è stato definito utilizzando la più vicina potenza del 2 rispetto a $Max(bisognoA, bisognoB) + Max(surplusA, surplusB)$.
+    \item $bisogno_{g, t}$: numero di ambulanze di tipo $t \in Tipo$ necessarie per il giorno $g \in Giorni$
+    \item $surplus_{g, t}$: numero di ambulanze di scorta di tipo $t \in Tipo$ necessarie per il giorno $g \in Giorni$
+    \item $maxAmbulanze_{t, f}$: numero massimo di ambulanze di tipo $t \in Tipo$ che il fornitore $f \in Fornitori$ può fornire al giorno
+    \item $maxGiorni_{t, f}$: numero massimo di giorni in cui un fornitore $f \in Fornitori$ può fornire ambulanze di tipo $t \in Tipo$
+    \item $costoGiornaliero_{t, f}$: costo giornaliero per l'utilizzo di un'ambulanza di tipo $t \in Tipo$ del fornitore $f \in Fornitori$
+    \item $addSurplus_{f}$: aumento percentuale del costo per l'utilizzo di un'ambulanza del fornitore $f \in Fornitori$ come surplus
+    \item $costoAttivazioneSettimanale_{f}$: costo di attivazione del fornitore $f \in Fornitori$ per la settimana
+    \item $BigM$: costante sufficientemente grande utilizzata per i vincoli logici
 \end{itemize}
 \subsection{Variabili}
 \begin{itemize}
-    \item $ambulanzeA_{fa, ga}$ = numero di ambulanze del fornitore $fa$ attivate il giorno $ga$
-    \item $ambulanzeB_{fb, gb}$ =  numero di ambulanze del fornitore $fb$ attivate il giorno $gb$
-    \item $attivazioneSettimanaleA_{fa}$ = 
+    \item $ambulanze_{t, f, g}$: numero di ambulanze di tipo $t \in Tipo$ del fornitore $f \in Fornitori$ attivate il giorno $g \in Giorni$
+    \item $ambulanzeSurplus_{t, f, g}$: numero di ambulanze di tipo $t \in Tipo$ del fornitore $f \in Fornitori$ attivate il giorno $g \in Giorni$ come surplus
+    \item $attivazioneSettimanale_{f}$ = 
     \(
     \begin{cases}
-        1 & \text{se viene attivato il fornitore di ambulanze di tipo A \textit{fa} per la settimana} \\
+        1 & \text{se viene attivato il fornitore $f \in Fornitori$ per la settimana} \\
         0 & altrimenti
     \end{cases}\)
-    \item $attivazioneSettimanaleB_{fb}$ = 
+    \item $attivazioneGiornaliera_{t, f, g}$ = 
     \(
     \begin{cases}
-        1 & \text{se viene attivato il fornitore di ambulanze di tipo B \textit{fb} per la settimana} \\
+        1 & \text{se viene attivata l'ambulanza di tipo $t \in Tipo$ del fornitore $f \in Fornitori$ il giorno $g \in Giorni$} \\
         0 & altrimenti
     \end{cases}\)
 \end{itemize}

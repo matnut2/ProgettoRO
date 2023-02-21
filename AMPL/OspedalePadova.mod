@@ -13,7 +13,7 @@ param surplus{ Giorni, Tipo } >= 0 integer default 2;
 # Numero Massimo di Ambulanze di un Determinato tipo Fornibili da un Determinato Fornitore
 param maxAmbulanze{ Tipo, Fornitori } >= 0 integer default 5;
 
-# Numero Massimo di Giorni in cui un Determinato Fornitore può Essere Attivato (Separatamente per Tipo di Ambulanza)
+# Numero Massimo di Giorni in cui un Determinato Fornitore puo' Essere Attivato (Separatamente per Tipo di Ambulanza)
 param maxGiorni{ Tipo, Fornitori } >= 0 <= 7 integer default 7;
 
 # Costo Giornaliero per una Ambulanza di un Determinato Tipo di un Determinato Fornitore
