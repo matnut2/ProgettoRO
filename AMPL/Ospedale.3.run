@@ -9,11 +9,13 @@ reset;
 model OspedalePadova.mod;
 data Ospedale.3.dat;
 option solver cplex;
+option presolve 0;
+
 solve;
 
 ### OUTPUT ###
 printf "--------------------------------------------\n";
-printf " Risultati Esecuzione 3 - Gestione Ambulanze\n";
+printf " Risultati Esecuzione 1 - Gestione Ambulanze\n";
 printf "--------------------------------------------\n";
 printf "Tempo di esecuzione: %.3f s\n", _total_solve_time;
 
@@ -21,11 +23,11 @@ printf "\n--------------------\n";
 printf "- Parametri in uso - \n";
 printf "--------------------\n";  
 
-display bisognoA, surplusA, bisognoB, surplusB;
+display bisogno, surplus;
 
-display maxA, maxB;
-display costoGiornalieroA, costoGiornalieroB;
-display costoAttivazioneA, costoAttivazioneB;
+display maxAmbulanze, maxGiorni;
+display costoGiornaliero, addSurplus;
+display costoAttivazioneSettimanale;
 
 printf "\n--------------------\n";  
 printf "- Stampa Risultati - \n";
@@ -40,13 +42,16 @@ display solve_result_num;
 }
 else {
 
-display attivazioneSettimanaleA, attivazioneSettimanaleB;
-display ambulanzeA, ambulanzeB;
+display attivazioneSettimanale;
+display attivazioneGiornaliera;
+display ambulanze;
+display ambulanzeSurplus;
 
 printf "\n----------------\n";  
 printf "- Costo Minimo - \n";
 printf "----------------\n"; 
 display costo;
 }
+
 #expand;		## Decommentare la riga per espandere il modello
 

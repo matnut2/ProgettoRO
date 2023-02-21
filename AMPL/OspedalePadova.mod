@@ -1,74 +1,95 @@
-# ==============================
-#         Modello AMPL
-#      Ricerca operativa
-#        Solda' Matteo
-#           (2022)
-# ==============================
-
 ### INSIEMI ###
-set Giorni ordered;     				 # Giorni della settimana
-set Fornitori							 # Fornitori di ambulanze
-set FornitoriA within Fornitori;         # Fornitori di ambulanze di tipo A
-set FornitoriB within Fornitori;         # Fornitori di ambulanze di tipo B
+set Giorni ordered;
+set Fornitori ordered;
+set Tipo;	# Vincolo 3
 
 ### PARAMETRI ###
-# Fabbisogno Giornaliero di Ambulanze
-param bisognoA { Giorni } >= 0 integer default 0;           
-param bisognoB { Giorni } >= 0 integer default 0;
+# Numero di Ambulanze Necessarie
+param bisogno{ Giorni, Tipo } >= 0 integer default 7;
 
-# Ambulanze "di Scorta"
-param surplusA { Giorni } >= 2 integer default 2;           
-param surplusB { Giorni } >= 1 integer default 1;
+# Numero di Ambulanze di Scorta
+param surplus{ Giorni, Tipo } >= 0 integer default 2;
 
-# Numero Massimo Giornaliero di Ambulanze Attiviabili da un Fornitore 
-param maxA { FornitoriA } >= 0 integer default 15;
-param maxB { FornitoriB } >= 0 integer default 5;
+# Numero Massimo di Ambulanze di un Determinato tipo Fornibili da un Determinato Fornitore
+param maxAmbulanze{ Tipo, Fornitori } >= 0 integer default 5;
 
-# Costo per l'Attivazione Settimanale di un Fornitore (2.1)
-param costoAttivazioneFornitore
+# Numero Massimo di Giorni in cui un Determinato Fornitore puÃ² Essere Attivato (Separatamente per Tipo di Ambulanza)
+param maxGiorni{ Tipo, Fornitori } >= 0 <= 7 integer default 7;
 
-# Costo per l'Attivazione Giornaliero di una Ambulanza
-param costoGiornalieroA { FornitoriA } > 0 default 10;
-param costoGiornalieroB { FornitoriB } > 0 default 5;
+# Costo Giornaliero per una Ambulanza di un Determinato Tipo di un Determinato Fornitore
+param costoGiornaliero{ Tipo, Fornitori } >= 0 default 15; 
 
-# Numero Massimo di Giorni nei quali un Fornitore può Intervenire (1)
-param MaxGiorni { Fornitori } >= 0 integer default 3;
+# Aumento Percentuale per Servizio in Surplus (Vincolo 2.2)
+param addSurplus{ Fornitori } >= 0 default 0.50;
 
-# Costo per l'Attivazione Settimanale di una Ambulanza (da pagare una sola volta in caso di attivazione del fornitore per la determinata settimana)
-param costoAttivazioneA { FornitoriA } >= 0 default 100;
-param costoAttivazioneB { FornitoriB } >= 0 default 75;
+# Costo di Attivazione Settimanale per l'Attivazione di un Fornitore Indipendentemente dal Tipo di Ambulanza
+param costoAttivazioneSettimanale{ Fornitori } >= 0 default 100;
 
-# BigM per vincoli di tipo logico
-param BigM >= 0 integer default 500;
+# BigM per Vincoli di Tipo Logico (COSTANTE)
+param BigM > 0 integer default 500;
 
 ### VARIABILI ###
-var ambulanzeA { fa in FornitoriA, ga in Giorni } integer >= 0;     # Numero di ambulanze di tipo A fornite dal fornitore fa il giorno ga 
-var ambulanzeB { fb in FornitoriB, gb in Giorni } integer >= 0;     # Numero di ambulanze di tipo B fornite dal fornitore fb il giorno gb
-var attivazioneSettimanaleFornitore { f in Fornitori } binary		# Variabile binaria per l'attivazione settimanale di un determinato fornitore (2.1)
-var attivazioneSettimanaleA { f in FornitoriA }   binary;           # Varaibile logica per l'attivazione settimanale delle ambulanze di tipo A di un certo fornitore
-var attivazioneSettimanaleB { f in FornitoriB }	  binary;           # Variabile logica per l'attivazione settimanale delle ambulanze di tipo B di un certo fornitore
+# Ambulanze di Tipo t del Fornitore f Attivate il Giorno g (+ Vincolo 2.2)
+var ambulanze{ t in Tipo, f in Fornitori, g in Giorni } >= 0 integer; 
+var ambulanzeSurplus{ t in Tipo, f in Fornitori, g in Giorni } >= 0 integer;
+
+# Variabile Logica per l'Attivazione Settimanale del Fornitore f Indipendentemente dal Tipo di Ambulanza (Vincolo 2.1)
+var attivazioneSettimanale{ f in Fornitori } binary;
+
+# Variabile Logica per l'Attivazione Giornaliera di un Determinato Fornitore in un Determinato Giorno (Indistintamente dal Tipo di Ambulanza) (Vincolo 2.3)
+var attivazioneGiornaliera{ t in Tipo,f in Fornitori, g in Giorni } binary;
 
 ### FUNZIONE OBIETTIVO ###
-minimize costo: 
-    (sum { f in FornitoriA, g in Giorni } ambulanzeA[f, g] * costoGiornalieroA[f]) + 			# COSTO SETTIMANALE AMBULANZE TIPO A
-    (sum { f in FornitoriB, g in Giorni } ambulanzeB[f, g] * costoGiornalieroB[f]) +			# COSTO SETTIMANALE AMBULANZE TIPO B
-    (sum { f in FornitoriA } attivazioneSettimanaleA[f] * costoAttivazioneA[f])	   +			# ATTIVAZIONE SETTIMANALE AMBULANZE TIPO B
-    (sum { f in FornitoriB } attivazioneSettimanaleB[f] * costoAttivazioneB[f])	    			# ATTIVAZIONE SETTIMANALE AMBULANZE TIPO B
-    ; # AGGIUNGERE COSTO DI ATTIVAZIONE DEL FORNITORE INIPENDENTE DAL TIPO DI AMBULANZA (2.1)
+minimize costo:
+	# Ambulanze Standard Attivate
+	(sum{ t in Tipo, f in Fornitori, g in Giorni } ambulanze[t, f, g] * costoGiornaliero[t, f]) +
+	# Ambulanze Surplus Attivate (Vincolo 2.2)
+	(sum{ t in Tipo, f in Fornitori, g in Giorni } (ambulanze[t, f, g] * costoGiornaliero[t, f] + 
+								  (ambulanze[t, f, g] * costoGiornaliero[t, f] * addSurplus[f]))) +
+	# Costo di Attivazione Settimanale (Indifferentemente dal Tipo di Ambulanza Attivata) (Vincolo 2.1)
+	(sum{ f in Fornitori } attivazioneSettimanale[f] * costoAttivazioneSettimanale[f])		
+	;
 
 ### VINCOLI ###
-# Vincoli Necessita' Giornaliera
-subject to necessitaGiornalieraA {g in Giorni} : sum { f in FornitoriA } ambulanzeA[f, g] >=  bisognoA[g] + surplusA[g];
-subject to necessitaGiornalieraB {g in Giorni} : sum { f in FornitoriB } ambulanzeB[f, g] >=  bisognoB[g] + surplusB[g];
+# Vincolo per la Necessita' Giornaliera (+ Vincolo 2.1)
+subject to necessitaGiornaliera { t in Tipo, g in Giorni } : sum{ f in Fornitori } ambulanze[t, f, g] = bisogno[g, t];
+subject to necessitaGiornalieraSurplus {t in Tipo, g in Giorni} : sum{ f in Fornitori } ambulanzeSurplus[t, f, g] = surplus[g, t];
+subject to maxDisponibilita {t in Tipo, f in Fornitori, g in Giorni } : ambulanze[t, f, g] + ambulanzeSurplus[t, f, g] <= maxAmbulanze[t, f]; 
 
-# Vincoli Disponibilita' Fornitori
-subject to disponibilitaA { f in FornitoriA, g in Giorni } :  ambulanzeA[f, g] <= maxA[f];
-subject to disponibilitaB { f in FornitoriB, g in Giorni } :  ambulanzeB[f, g] <= maxB[f]; 
+# Vincolo per la Disponibilita' dei Fornitori
+subject to disponibilita { t in Tipo, f in Fornitori, g in Giorni } : ambulanze[t, f, g] <= maxAmbulanze[t, f];
 
-# Vincolo Disponibilità Giorni di Attivazione
-### conta dell'attivazione del fornitore che deve essere minore della disponibibilità massima
+# Vincolo Logico per l'Attivazione Settimanale di un Fornitore Indipendentemente dal Tipo di Ambulanza Attivata (Vincolo 2.1)
+subject to attivazioneSettimanaleFornitore { t in Tipo, f in Fornitori, g in Giorni } :  ambulanze[t, f, g] <= BigM * attivazioneSettimanale[f];
 
-# Vincoli Logici
-subject to ? ### ATTIVAZIONE DEL FORNITORE INDIPENDENTEMENTE DALL'AMBULANZA (2.1)
-subject to attivazioneA { f in FornitoriA, g in Giorni } : ambulanzeA[f, g] <= BigM * attivazioneSettimanaleA[f];
-subject to attivazioneB { f in FornitoriB, g in Giorni } : ambulanzeB[f, g] <= BigM * attivazioneSettimanaleB[f]; 
+# Vincolo Logico per l'Attivazione di Almeno 3 Fornitori in un Giorno (Considerando il Tipo di Ambulanza) (Vincolo 2.3) + Vincoli Derivanti
+subject to attivazioneMinima {t in Tipo, g in Giorni } : sum{ f in Fornitori } attivazioneGiornaliera[t, f, g] >= 2;
+subject to collegamento2 { t in Tipo, f in Fornitori, g in Giorni} : attivazioneGiornaliera[t, f, g] <= attivazioneSettimanale[f];
+subject to attivazioniGiornaliere { t in Tipo, f in Fornitori, g in Giorni } :(ambulanze[t, f, g] + ambulanzeSurplus[t, f, g]) <= BigM * attivazioneGiornaliera[ t, f, g];
+## il vincolo che "obbliga" ad utilizzare almeno una ambulanza del fornitore se attivato causa un malfunzionamento inspiegabile del programma
+
+### ----------------------- VERSIONE CHE NON CONSIDERA IL TIPO DI AMBULANZA ----------------------- ###
+# Questa versione, per essere funzionante, deve essere seguita dalla modifica del parametro "attivazioneGiornaliera" dal quale va rimosso il parametro "t"
+#subject to attivazioneMinima { g in Giorni } : sum{ f in Fornitori } attivazioneGiornaliera[f, g] >= 4;
+#subject to collegamento2 {f in Fornitori, g in Giorni} : attivazioneGiornaliera[f, g] <= attivazioneSettimanale[f];
+#subject to attivazioniGiornaliere { f in Fornitori, g in Giorni } : sum{ t in Tipo} (ambulanze[t, f, g] + ambulanzeSurplus[t, f, g]) <= BigM * attivazioneGiornaliera[f, g];
+#subject to attivazioneMinima_attivazione { f in Fornitori, g in Giorni } : sum{ t in Tipo}( ambulanze[t, f, g] + ambulanzeSurplus[t, f, g]) >= attivazioneGiornaliera[f, g];
+
+# Vincolo che Limita l'Attivazione dei Fornitori nell'Arco della Settimana (Considerando il Tipo di Ambulanza)
+subject to massimaAttivazione { t in Tipo, f in Fornitori} : sum{g in Giorni} attivazioneGiornaliera[t, f, g] <= maxGiorni[t, f];
+
+# Vincolo di Fairness
+#subject to fairnessOnWork { g in Giorni } : 
+#	sum {t in Tipo, f in Fornitori} (ambulanze[t, f, g] + ambulanzeSurplus[t, f, g]) 
+#	<= 
+#	sum { t in Tipo, f in Fornitori }( 1 / card(Fornitori))* sum{ f2 in Fornitori} (ambulanze[t, f2, g] + ambulanzeSurplus[t, f2, g]);
+	
+#subject to fairnessOnWork { f in Fornitori } :
+#	sum {t in Tipo, g in Giorni} (ambulanze[t, f, g] + ambulanzeSurplus[t, f, g]) 
+#	<= 
+#	sum { t in Tipo, g in Giorni }(( 1 / card(Fornitori))* sum{ g2 in Giorni} (ambulanze[t, f, g2] + ambulanzeSurplus[t, f, g2]));
+	
+#subject to fairnessOnWork {t in Tipo, f in Fornitori, g in Giorni } :
+#	ambulanze[t, f, g] + ambulanzeSurplus[t, f, g] 
+#	<= 
+#	(1/card(Fornitori)) *sum{ f2 in Fornitori } (ambulanze[t, f2, g] + ambulanzeSurplus[t, f2, g]);

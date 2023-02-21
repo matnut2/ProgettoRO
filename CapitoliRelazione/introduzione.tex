@@ -16,13 +16,14 @@ Il numero di ambulanze complessive in un determinato giorno viene stimato rispet
 Si vuole quindi minimizzare il costo complessivo settimanale per il servizio, sapendo che:
 \begin{itemize}
     \item Ogni giorno la Centrale Operativa ha necessità di un quantitativo diverso di ambulanze
-    \item Qualora si attivasse una OdV per l'assistenza settimanale, è prevista una singola quota fissa di attivazione
+    \item Qualora si attivasse una OdV per l'assistenza settimanale, è prevista una singola quota fissa di attivazione, indipendentemente dal tipo di ambulanza attivata
     \item Ogni ambulanza richiamata dalle OdV prevede un rimborso spese giornaliero che varia in base all'organizzazione e al tipo di ambulanza attivata
     \item Le ambulanze dell'Azienda Ospedaliera e degli ospedali periferici, se attivate in un determinato giorno, prevedono dei piccoli costi di manutenzione
     \item Ogni OdV e ospedale dispone di un numero limitato di ambulanze
     \item Ogni giorno bisogna attivare un numero arbitrario di ambulanze in più rispetto al fabbisogno
     \item L'Ospedale deve attivare un minimo di fornitori ogni giorno
     \item Le OdV possono intervenire per un numero limitato di giorni
+    \item Il carico di lavoro tra le varie OdV deve essere proporzionale (\textit{fairness})
 \end{itemize}
 \vspace*{3 cm}
 \textbf{Disclaimer: } \textit{questo progetto riguarda un tema reale con dati fittizi. Le Organizzazioni di Volontariato citate nell'introduzione e l'Ospedale di Padova sono realmente esistenti, ma i dati riguardanti disponibilità di mezzi, stima della necessità, metodologie di intervento e costi sostenuti sono casuali e adattati per rendere consistente lo studio in questione. Ogni riferimento è quindi da ritenersi puramente casuale in quanto frutto dell'immaginazione del redattore.}
