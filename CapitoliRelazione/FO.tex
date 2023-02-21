@@ -1,15 +1,16 @@
 \subsection{Funzione Obiettivo}
 La funzione obiettivo del problema può essere espressa in forma generale come segue:
 \begin{align*}
-	\textrm{min} \quad & \textbf{Costo\ Giornaliero\ Ambulanze\ Tipo\ A} + \textbf{Costo\ Giornaliero\ Ambulanze\ Tipo\ B} \\ 
-    & + \textbf{Costo\ Attivazione\ Ambulanze\ Tipo\ A} + \textbf{Costo\ Attivazione\ Ambulanze\ Tipo\ B}
+	\textrm{min} \quad & \textbf{Costo\ Giornaliero\ Ambulanze\ Standard} + \textbf{Costo\ Giornaliero\ Ambulanze\ Surplus} \\ 
+    & + \textbf{Costo\ Attivazione\ Settimanale} + \textbf{Costo\ Attivazione\ Giornaliero}
 \end{align*}
 Dove i termini sono così definiti:
 \begin{flalign*}
-    & \textbf{Costo\ Giornaliero\ Ambulanze\ Tipo\ A} = \sum_{f \in FornitoriA, g \in Giorni} ambulanzeA[f, g] \cdot costoGiornalieroA[f] && \\
-    & \textbf{Costo\ Giornaliero\ Ambulanze\ Tipo\ B} = \sum_{f \in FornitoriB, g \in Giorni} ambulanzeB[f, g] \cdot costoGiornalieroB[f] && \\
-    & \textbf{Costo\ Attivazione\ Ambulanze\ Tipo\ A} = \sum_{f \in FornitoriA} attivazioneSettimanaleA[f] \cdot costoAttivazioneA[f] && \\
-    & \textbf{Costo\ Attivazione\ Ambulanze\ Tipo\ B} = \sum_{f \in FornitoriB} attivazioneSettimanaleB[f] \cdot costoAttivazioneB[f] &&
+    & \textbf{Costo\ Giornaliero\ Ambulanze\ Standard} = \sum_{t \in Tipo, f \in Fornitori, g \in Giorni} ambulanze[t, f, g] \cdot costoGiornalieroA[t, f] && \\
+    & \textbf{Costo\ Giornaliero\ Ambulanze\ Surplus} = Costo\ Giornaliero\ Ambulanze\ Standard\ + && \\ 
+    &         Costo Giornaliero Ambulanze Standard \cdot addSurplus[t, f] && \\
+    & \textbf{Costo\ Attivazione\ Settimanale} = \sum_{f \in Fornitori} attivazioneSettimanaleA[f] \cdot costoAttivazioneSettimanale[f] && \\
+    & \textbf{Costo\ Attivazione\ Giornaliera} = \sum_{t \in Tipo, f \in Fornitori, g \in Giorni} attivazioneGiornaliera[t, f, g] \cdot costoGiornaliero[t, f] &&
 \end{flalign*}
 \textbf{subject to}
 \begin{itemize}

@@ -44,8 +44,8 @@ minimize costo:
 	# Ambulanze Standard Attivate
 	(sum{ t in Tipo, f in Fornitori, g in Giorni } ambulanze[t, f, g] * costoGiornaliero[t, f]) +
 	# Ambulanze Surplus Attivate (Vincolo 2.2)
-	(sum{ t in Tipo, f in Fornitori, g in Giorni } (ambulanze[t, f, g] * costoGiornaliero[t, f] + 
-								  (ambulanze[t, f, g] * costoGiornaliero[t, f] * addSurplus[f]))) +
+	(sum{ t in Tipo, f in Fornitori, g in Giorni } (ambulanzeSurplus[t, f, g] * costoGiornaliero[t, f] + 
+								  (ambulanzeSurplus[t, f, g] * costoGiornaliero[t, f] * addSurplus[f]))) +
 	# Costo di Attivazione Settimanale (Indifferentemente dal Tipo di Ambulanza Attivata) (Vincolo 2.1)
 	(sum{ f in Fornitori } attivazioneSettimanale[f] * costoAttivazioneSettimanale[f])		
 	;
