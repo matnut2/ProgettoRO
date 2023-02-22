@@ -13,7 +13,7 @@ param surplus{ Giorni, Tipo } >= 0 integer default 2;
 # Numero Massimo di Ambulanze di un Determinato tipo Fornibili da un Determinato Fornitore
 param maxAmbulanze{ Tipo, Fornitori } >= 0 integer default 5;
 
-# Numero Massimo di Giorni in cui un Determinato Fornitore puo' Essere Attivato (Separatamente per Tipo di Ambulanza)
+# Numero Massimo di Giorni in cui un Determinato Fornitore puo' Essere Attivato (Separatamente per Tipo di Ambulanza)(Vincolo 1)
 param maxGiorni{ Tipo, Fornitori } >= 0 <= 7 integer default 7;
 
 # Costo Giornaliero per una Ambulanza di un Determinato Tipo di un Determinato Fornitore
@@ -28,7 +28,7 @@ param costoAttivazioneSettimanale{ Fornitori } >= 0 default 100;
 # BigM per Vincoli di Tipo Logico (COSTANTE)
 param BigM > 0 integer default 500;
 
-# Numero Minimo di Fornitori da Attivare al Giorno
+# Numero Minimo di Fornitori da Attivare al Giorno (COSTANTE)(Vincolo 2.3)
 param MIN_FORNITORI > 0 <= card(Fornitori) default (card(Fornitori)/2);
 
 ### VARIABILI ###
@@ -45,18 +45,20 @@ var attivazioneGiornaliera{ t in Tipo,f in Fornitori, g in Giorni } binary;
 ### FUNZIONE OBIETTIVO ###
 minimize costo:
 	# Ambulanze Standard Attivate
-	(sum{ t in Tipo, f in Fornitori, g in Giorni } ambulanze[t, f, g] * costoGiornaliero[t, f]) +
+	(sum{ t in Tipo, f in Fornitori, g in Giorni } ambulanze[t, f, g] * costoGiornaliero[t, f]) 			+
 	# Ambulanze Surplus Attivate (Vincolo 2.2)
-	(sum{ t in Tipo, f in Fornitori, g in Giorni } (ambulanzeSurplus[t, f, g] * costoGiornaliero[t, f] + 
-								  (ambulanzeSurplus[t, f, g] * costoGiornaliero[t, f] * addSurplus[f]))) +
-	# Costo di Attivazione Settimanale (Indifferentemente dal Tipo di Ambulanza Attivata) (Vincolo 2.1)
-	(sum{ f in Fornitori } attivazioneSettimanale[f] * costoAttivazioneSettimanale[f])		
+	(sum{ t in Tipo, f in Fornitori, g in Giorni } (ambulanzeSurplus[t, f, g] * costoGiornaliero[t, f] 		+ 
+								  (ambulanzeSurplus[t, f, g] * costoGiornaliero[t, f] * addSurplus[f]))) 	+
+	# Costo di Attivazione Settimanale (Vincolo 2.1)
+	(sum{ f in Fornitori } attivazioneSettimanale[f] * costoAttivazioneSettimanale[f])						+
+	# Costo delle Attivazioni Giornaliere
+	(sum{ t in Tipo, f in Fornitori, g in Giorni } attivazioneGiornaliera[t, f, g] * costoGiornaliero[t, f]) 		
 	;
 
 ### VINCOLI ###
 # Vincolo per la Necessita' Giornaliera (+ Vincolo 2.1)
-subject to necessitaGiornaliera { t in Tipo, g in Giorni } : sum{ f in Fornitori } ambulanze[t, f, g] = bisogno[g, t];
-subject to necessitaGiornalieraSurplus {t in Tipo, g in Giorni} : sum{ f in Fornitori } ambulanzeSurplus[t, f, g] = surplus[g, t];
+subject to necessitaGiornaliera { t in Tipo, g in Giorni } : sum{ f in Fornitori } ambulanze[t, f, g] >= bisogno[g, t];
+subject to necessitaGiornalieraSurplus {t in Tipo, g in Giorni} : sum{ f in Fornitori } ambulanzeSurplus[t, f, g] >= surplus[g, t];
 subject to maxDisponibilita {t in Tipo, f in Fornitori, g in Giorni } : ambulanze[t, f, g] + ambulanzeSurplus[t, f, g] <= maxAmbulanze[t, f]; 
 
 # Vincolo Logico per l'Attivazione Settimanale di un Fornitore Indipendentemente dal Tipo di Ambulanza Attivata (Vincolo 2.1)
@@ -66,30 +68,6 @@ subject to attivazioneSettimanaleFornitore { t in Tipo, f in Fornitori, g in Gio
 subject to attivazioneMinima {t in Tipo, g in Giorni } : sum{ f in Fornitori } attivazioneGiornaliera[t, f, g] >= MIN_FORNITORI;
 subject to collegamento2 { t in Tipo, f in Fornitori, g in Giorni} : attivazioneGiornaliera[t, f, g] <= attivazioneSettimanale[f];
 subject to attivazioniGiornaliere { t in Tipo, f in Fornitori, g in Giorni } :(ambulanze[t, f, g] + ambulanzeSurplus[t, f, g]) <= BigM * attivazioneGiornaliera[ t, f, g];
-## il vincolo che "obbliga" ad utilizzare almeno una ambulanza del fornitore se attivato causa un malfunzionamento inspiegabile del programma
 
-### ----------------------- VERSIONE CHE NON CONSIDERA IL TIPO DI AMBULANZA ----------------------- ###
-# Questa versione, per essere funzionante, deve essere seguita dalla modifica del parametro "attivazioneGiornaliera" dal quale va rimosso il parametro "t"
-#subject to attivazioneMinima { g in Giorni } : sum{ f in Fornitori } attivazioneGiornaliera[f, g] >= 4;
-#subject to collegamento2 {f in Fornitori, g in Giorni} : attivazioneGiornaliera[f, g] <= attivazioneSettimanale[f];
-#subject to attivazioniGiornaliere { f in Fornitori, g in Giorni } : sum{ t in Tipo} (ambulanze[t, f, g] + ambulanzeSurplus[t, f, g]) <= BigM * attivazioneGiornaliera[f, g];
-#subject to attivazioneMinima_attivazione { f in Fornitori, g in Giorni } : sum{ t in Tipo}( ambulanze[t, f, g] + ambulanzeSurplus[t, f, g]) >= attivazioneGiornaliera[f, g];
-
-# Vincolo che Limita l'Attivazione dei Fornitori nell'Arco della Settimana (Considerando il Tipo di Ambulanza)
+# Vincolo che Limita l'Attivazione dei Fornitori nell'Arco della Settimana (Considerando il Tipo di Ambulanza)(Vincolo 1)
 subject to massimaAttivazione { t in Tipo, f in Fornitori} : sum{g in Giorni} attivazioneGiornaliera[t, f, g] <= maxGiorni[t, f];
-
-# Vincolo di Fairness
-#subject to fairnessOnWork { g in Giorni } : 
-#	sum {t in Tipo, f in Fornitori} (ambulanze[t, f, g] + ambulanzeSurplus[t, f, g]) 
-#	<= 
-#	sum { t in Tipo, f in Fornitori }( 1 / card(Fornitori))* sum{ f2 in Fornitori} (ambulanze[t, f2, g] + ambulanzeSurplus[t, f2, g]);
-	
-#subject to fairnessOnWork { f in Fornitori } :
-#	sum {t in Tipo, g in Giorni} (ambulanze[t, f, g] + ambulanzeSurplus[t, f, g]) 
-#	<= 
-#	sum { t in Tipo, g in Giorni }(( 1 / card(Fornitori))* sum{ g2 in Giorni} (ambulanze[t, f, g2] + ambulanzeSurplus[t, f, g2]));
-	
-#subject to fairnessOnWork {t in Tipo, f in Fornitori, g in Giorni } :
-#	ambulanze[t, f, g] + ambulanzeSurplus[t, f, g] 
-#	<= 
-#	(1/card(Fornitori)) *sum{ f2 in Fornitori } (ambulanze[t, f2, g] + ambulanzeSurplus[t, f2, g]);

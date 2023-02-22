@@ -5,27 +5,27 @@ set Tipo := trasporto emergenza;
 
 ### PARAMETRI ###
 param bisogno (tr)  : lunedi martedi mercoledi giovedi venerdi sabato domenica :=
-trasporto				5		5		5			5		5		0		0
-emergenza				7		7		7			7		10		12		10
+trasporto				3		5		2			3		4		2		0
+emergenza				20		22		10			20		30		30		15
 ;
 
 param surplus (tr) : lunedi martedi mercoledi giovedi venerdi sabato domenica :=
-trasporto				2		2		2			3		3		1		1
-emergenza				1		1		1			2		3		4		4 
+trasporto				1		3		1			1		2		1		1
+emergenza				3		3		3			2		5		6		4 
 ;
 
 param maxAmbulanze (tr) : trasporto emergenza :=
-interna						3			5
+interna						2			3
 bianca						5			0
-rossa						0			7
-verde						5			9
+rossa						0			15
+verde						10			30
 ;
 
 param maxGiorni (tr):	trasporto emergenza :=
 interna						7			7
 bianca						3			0
-rossa						0			4
-verde						4			4
+rossa						0			5
+verde						4			6
 ;
 
 param costoGiornaliero (tr) : trasporto emergenza :=

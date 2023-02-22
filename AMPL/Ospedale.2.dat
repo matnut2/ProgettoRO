@@ -2,3 +2,14 @@
 set Giorni := lunedi martedi mercoledi giovedi venerdi sabato domenica;
 set Fornitori := interna bianca rossa verde;
 set Tipo := trasporto emergenza;
+
+### PARAMETRI ###
+param bisogno (tr) : lunedi martedi mercoledi giovedi venerdi sabato domenica :=
+trasporto				200 200		200			200		200		200		200
+emergenza				200 200		200			200		200		200		200
+;
+
+param surplus (tr) : lunedi martedi mercoledi giovedi venerdi sabato domenica :=
+trasporto				200 200		200			200		200		200		200
+emergenza				200 200		200			200		200		200		200
+;

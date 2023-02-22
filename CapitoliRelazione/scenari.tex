@@ -8,191 +8,131 @@ Gli insiemi sono così definiti: \newline \vspace*{0.1 cm} \newline
 \newline
 \vspace*{0.3 cm}
 \newline
-\begin{tabular}{|| c || c c c ||}
+\begin{tabular}{|| c || c c c c ||}
     \hline
-        FornitoriA & rossa & verde & interna \\
+        Fornitori & interna & bianca & rossa & verde \\
     \hline
 \end{tabular}
 \newline
 \vspace*{0.3 cm}
 \newline
-\begin{tabular}{|| c || c c c ||}
+\begin{tabular}{|| c || c c ||}
     \hline
-        FornitoriA & bianca & verde & interna \\
+        Tipo & trasporto & emergenza \\
     \hline
 \end{tabular}
 
 \subsection{Primo Scenario}
 \subsubsection{Descrizione}
-In questo primo scenario, i dati sono stati inseriti manualmente, con un numero di ambulanze necessarie tale da permettere di trovare una soluzione ottima.
+In questo primo scenario, i dati sono stati inseriti manualmente, con un numero di ambulanze necessarie tale da permettere di trovare una soluzione ottima e che sfrutti tutti i vincoli imposti.
 \subsubsection{Dati}
 \begin{center}
-\begin{tabular}{| c | c |}
+\begin{tabular}{|| c || c | c |}
     \hline
-    \multicolumn{2}{|c|}{BisognoA}\\
+    \multicolumn{3}{|c|}{Bisogno}\\
     \hline \hline
-    lunedi & 20 \\
-    martedi & 22 \\
-    mercoledi & 10 \\
-    giovedi & 20 \\
-    venerdi & 30 \\
-    sabato & 30 \\
-    domenica & 15 \\
+    Giorno & Trasporto & Emergenza \\
+    \hline
+    lunedi & 3 & 20 \\
+    martedi & 5 & 22 \\
+    mercoledi & 2 & 10 \\
+    giovedi & 3 & 20 \\
+    venerdi & 4 & 30 \\
+    sabato & 2 & 30 \\
+    domenica & 0 & 15 \\
     \hline
 \end{tabular}
-\begin{tabular}{| c | c |}
+\begin{tabular}{|| c || c | c |}
     \hline
-    \multicolumn{2}{|c|}{BisognoB}\\
+    \multicolumn{3}{|c|}{Surplus}\\
     \hline \hline
-    lunedi & 3 \\
-    martedi & 5 \\
-    mercoledi & 2 \\
-    giovedi & 3 \\
-    venerdi & 4 \\
-    sabato & 2 \\
-    domenica & 0 \\
+    Giorno & Trasporto & Emergenza \\
     \hline
-\end{tabular}
-\begin{tabular}{| c | c |}
-    \hline
-    \multicolumn{2}{|c|}{surplusA}\\
-    \hline \hline
-    lunedi & 3 \\
-    martedi & 3 \\
-    mercoledi & 3 \\
-    giovedi & 2 \\
-    venerdi & 5 \\
-    sabato & 6 \\
-    domenica & 4 \\
-    \hline
-\end{tabular}
-\begin{tabular}{| c | c |}
-    \hline
-    \multicolumn{2}{|c|}{surplusB}\\
-    \hline \hline
-    lunedi & 1 \\
-    martedi & 3 \\
-    mercoledi & 1 \\
-    giovedi & 1 \\
-    venerdi & 2 \\
-    sabato & 1 \\
-    domenica & 1 \\
+    lunedi & 1 & 3 \\
+    martedi & 3 & 3 \\
+    mercoledi & 1 & 3 \\
+    giovedi & 1 & 2 \\
+    venerdi & 2 & 5 \\
+    sabato & 1 & 6 \\
+    domenica & 1 & 4 \\
     \hline
 \end{tabular}
 \newline
-\begin{tabular}{| c | c |}
+\begin{tabular}{|| c || c | c |}
     \hline
-    \multicolumn{2}{|c|}{maxA}\\
+    \multicolumn{3}{|c|}{maxAmbulanze}\\
     \hline \hline
-    rossa & 15 \\
-    verde & 30 \\
-    interna & 3 \\
+    OdV & Trasporto & Emergenza \\
+    \hline
+    interna & 2 & 3 \\
+    bianca & 5 & 0 \\
+    rossa & 0 & 15 \\
+    verde & 10 & 30 \\
     \hline    
 \end{tabular}
-\begin{tabular}{| c | c |}
+\begin{tabular}{|| c || c | c |}
     \hline
-    \multicolumn{2}{|c|}{maxB} \\
+    \multicolumn{3}{|c|}{maxGiorni}\\
     \hline \hline
-    bianca & 5 \\
-    verde & 10 \\
-    interna & 8 \\
+    OdV & Trasporto & Emergenza \\
+    \hline
+    interna & 7 & 7 \\
+    bianca & 3 & 0 \\
+    rossa & 0 & 5 \\
+    verde & 4 & 6 \\
     \hline    
 \end{tabular}
-\begin{tabular}{| c | c |}
+\newline
+\begin{tabular}{|| c || c | c |}
     \hline
-    \multicolumn{2}{|c|}{costoGiornalieroA}\\
+    \multicolumn{3}{|c|}{costoGiornaliero}\\
     \hline \hline
-    rossa & 15 \\
-    verde & 18 \\
-    interna & 8 \\
+    OdV & Trasporto & Emergenza \\
+    \hline
+    interna & 5 & 8 \\
+    bianca & 10 & 0 \\
+    rossa & 0 & 10 \\
+    verde & 7 & 15 \\
     \hline    
 \end{tabular}
-\begin{tabular}{| c | c |}
+\begin{tabular}{|| c || c |}
     \hline
-    \multicolumn{2}{|c|}{costoGiornalieroB} \\
+    \multicolumn{2}{|c|}{addSurplus} \\ 
     \hline \hline
-    bianca & 20 \\
-    verde & 12 \\
-    interna & 5 \\
-    \hline    
+    OdV & Fattore Moltiplicativo \\
+    \hline
+    interna & 0.00 \\
+    bianca  & 5.00 \\
+    rossa   & 8.00 \\
+    verde   & 10.00 \\
+    \hline
 \end{tabular}
-\begin{tabular}{| c | c |}
+\newline
+\begin{tabular}{|| c || c |}
     \hline
-    \multicolumn{2}{|c|}{costoAttivazioneA}\\
+    \multicolumn{2}{|c|}{costoAttivazioneSettimanale} \\ 
     \hline \hline
-    rossa & 130 \\
-    verde & 50 \\
-    interna & 0 \\
-    \hline    
-\end{tabular}
-\begin{tabular}{| c | c |}
+    OdV & Costo \\
     \hline
-    \multicolumn{2}{|c|}{costoAttivazioneB} \\
-    \hline \hline
-    bianca & 70 \\
-    verde & 55 \\
-    interna & 0 \\
-    \hline    
+    interna & 25 \\
+    bianca  & 150 \\
+    rossa   & 130 \\
+    verde   & 170 \\
+    \hline
 \end{tabular}
 \end{center}
 \subsubsection{Output}
-L'esecuzione del file \textbf{.run} mostra che il costo minimo è di \texteuro$2929$. Per quanto riguarda l'attivazione delle ambulanze di tipo A, sono state attivate solo le ambulanze interne (dato che avevano un costo di attivazione settimanale e giornaliera molto inferiore rispetto alle OdV) e la Croce Rossa. Parlando invece delle ambulanze di tipo B sono state attivate solo quelle interne in quanto sono abbastanza per coprire il fabbisogno giornaliero garantendo il costo minore.
-
+L'esecuzione del file \textit{.run} relativo a questo scenario mostra che il costo minimo sostenibile è di \texteuro $3595$. Come si può vedere dall'output, ogni giorno sono stati attivati almeno 2 fornitori per tipo di ambulanza. Oltre a questo si può notare che, per quanto riguarda le ambulanze surplus, il programma ha scelto giustamente di usare quelle interne in quanto il fattore moltiplicativo per tale utilizzo è nullo.
 \subsection{Secondo Scenario}
 \subsubsection{Descrizione}
-Il secondo set di dati differisce dal primo solo per la richiesta di ambulanze sia di tipo A che di tipo B per il lunedi che non è soddisfacibile. Per questo motivo, nel prossimo paragrafo saranno riportati solo i parametri modificati.
-\subsubsection{Dati}
-\begin{center}
-\begin{tabular}{| c | c |}
-    \hline
-    \multicolumn{2}{|c|}{BisognoA}\\
-    \hline \hline
-    lunedi & 150 \\
-    martedi & 22 \\
-    mercoledi & 10 \\
-    giovedi & 20 \\
-    venerdi & 30 \\
-    sabato & 30 \\
-    domenica & 15 \\
-    \hline
-\end{tabular}
-\begin{tabular}{| c | c |}
-    \hline
-    \multicolumn{2}{|c|}{BisognoB}\\
-    \hline \hline
-    lunedi & 65 \\
-    martedi & 5 \\
-    mercoledi & 2 \\
-    giovedi & 3 \\
-    venerdi & 4 \\
-    sabato & 2 \\
-    domenica & 0 \\
-    \hline
-\end{tabular}
-\begin{tabular}{| c | c |}
-    \hline
-    \multicolumn{2}{|c|}{maxA}\\
-    \hline \hline
-    rossa & 15 \\
-    verde & 30 \\
-    interna & 3 \\
-    \hline    
-\end{tabular}
-\begin{tabular}{| c | c |}
-    \hline
-    \multicolumn{2}{|c|}{maxB} \\
-    \hline \hline
-    bianca & 5 \\
-    verde & 10 \\
-    interna & 8 \\
-    \hline    
-\end{tabular}
-\end{center}
+Il secondo set di dati prevede un bisogno e un surplus impossibili da soddisfare, per questo già il \textit{presolve} ritornerà un errore che indica l'impossibilità di trovare una soluzione con i vincoli di riferimento.
+Senza riportare nuovamente le tabelle, il set di dati utilizza tutti i dati di default tranne che per i parametri \textit{bisogno} e \textit{surplus} che hanno un valore di 200.
+
 \subsubsection{Output}
-Ovviamente, il costo minimo trovato eseguendo il file \textbf{.run} sarà pari a \texteuro$0$. La non risolvibilità del problema è data dal fatto che l'insieme delle ambulanze di tipo A ($38$) e di tipo B ($23$) non sono abbastanza per coprire il fabbisogno del lunedì (rispettivamente di $153$ ambulanze di tipo A e $66$ ambulanze di tipo B).
+Ovviamente, il costo minimo trovato eseguendo il file \textbf{.run} sarà pari a \texteuro$0$. La non risolvibilità del problema è data dal fatto che l'insieme delle ambulanze dedicate alle emergenze ($20$) e dedicate al trasporto ($20$) non sono abbastanza per coprire il fabbisogno dell'intera settimana (ossia di $200$ ambulanze per tipo al giorno).
 
 \subsection{Terzo Scenario}
 \subsubsection{Descrizione}
 Nel terzo scenario sono stati definiti soltanto gli insiemi, così da poter sfruttare i valori di default. Per questo motivo non verrà riportato il valore dei vari parametri in quanto specificato nel modello.
 \subsubsection{Output}
-Eseguendo il file \textbf{.run} dedicato, utilizzando quindi i dati di default, il costo minimo risulta essere di \texteuro$350$.
+Eseguendo il file \textbf{.run} dedicato, utilizzando quindi i dati di default, il costo minimo risulta essere di \texteuro$2720$.
