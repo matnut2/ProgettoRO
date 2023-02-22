@@ -1,3 +1,10 @@
+# ==============================
+#  Generazione Output Specifico
+#      Ricerca operativa
+#        Solda' Matteo
+#           (2022)
+# ==============================
+
 printf "--------------------------------------------\n" >> Output.txt;
 printf "--------------------------------------------\n" >> Output.txt;
 printf " Risultati Esecuzione - Gestione Ambulanze\n" >> Output.txt;

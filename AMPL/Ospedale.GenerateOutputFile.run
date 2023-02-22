@@ -1,10 +1,20 @@
+# ==============================
+#   Generazione Output Generico
+#      Ricerca operativa
+#        Solda' Matteo
+#           (2022)
+# ==============================
+
 printf "" > Output.txt;
+printf "DATASET 1 - PROBLEMA RISOLVIBILE\n" >> Output.txt;
 include Ospedale.1.run;
 include GenerateOutput.run;
 
+printf "DATASET 2 - PROBLEMA NON RISOLVIBILE\n" >> Output.txt;
 include Ospedale.2.run;
 include GenerateOutput.run;
 
+printf "DATASET 3 - PROBLEMA CON DATI DI DEFAULT\n" >> Output.txt;
 include Ospedale.3.run;
 include GenerateOutput.run;
 close("Output.txt");

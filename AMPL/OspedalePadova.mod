@@ -1,3 +1,10 @@
+# ==============================
+#         Modello AMPL
+#      Ricerca operativa
+#        Solda' Matteo
+#           (2022)
+# ==============================
+
 ### INSIEMI ###
 set Giorni ordered;
 set Fornitori ordered;
@@ -44,14 +51,10 @@ var attivazioneGiornaliera{ t in Tipo,f in Fornitori, g in Giorni } binary;
 
 ### FUNZIONE OBIETTIVO ###
 minimize costo:
-	# Ambulanze Standard Attivate
 	(sum{ t in Tipo, f in Fornitori, g in Giorni } ambulanze[t, f, g] * costoGiornaliero[t, f]) 			+
-	# Ambulanze Surplus Attivate (Vincolo 2.2)
 	(sum{ t in Tipo, f in Fornitori, g in Giorni } (ambulanzeSurplus[t, f, g] * costoGiornaliero[t, f] 		+ 
-								  (ambulanzeSurplus[t, f, g] * costoGiornaliero[t, f] * addSurplus[f]))) 	+
-	# Costo di Attivazione Settimanale (Vincolo 2.1)
+	(ambulanzeSurplus[t, f, g] * costoGiornaliero[t, f] * addSurplus[f]))) 	+
 	(sum{ f in Fornitori } attivazioneSettimanale[f] * costoAttivazioneSettimanale[f])						+
-	# Costo delle Attivazioni Giornaliere
 	(sum{ t in Tipo, f in Fornitori, g in Giorni } attivazioneGiornaliera[t, f, g] * costoGiornaliero[t, f]) 		
 	;
 

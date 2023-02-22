@@ -1,39 +1,40 @@
+DATASET 1 - PROBLEMA RISOLVIBILE
 --------------------------------------------
 --------------------------------------------
  Risultati Esecuzione - Gestione Ambulanze
 --------------------------------------------
 --------------------------------------------
-Tempo di esecuzione: 0.047 s
+Tempo di esecuzione: 0.109 s
 
 --------------------
 - Parametri in uso - 
 --------------------
 :                   bisogno surplus    :=
-lunedi    emergenza     7       1
-lunedi    trasporto     5       2
-martedi   emergenza     7       1
-martedi   trasporto     5       2
-mercoledi emergenza     7       1
-mercoledi trasporto     5       2
-giovedi   emergenza     7       2
-giovedi   trasporto     5       3
-venerdi   emergenza    10       3
-venerdi   trasporto     5       3
-sabato    emergenza    12       4
-sabato    trasporto     0       1
-domenica  emergenza    10       4
+lunedi    emergenza    20       3
+lunedi    trasporto     3       1
+martedi   emergenza    22       3
+martedi   trasporto     5       3
+mercoledi emergenza    10       3
+mercoledi trasporto     2       1
+giovedi   emergenza    20       2
+giovedi   trasporto     3       1
+venerdi   emergenza    30       5
+venerdi   trasporto     4       2
+sabato    emergenza    30       6
+sabato    trasporto     2       1
+domenica  emergenza    15       4
 domenica  trasporto     0       1
 ;
 
 :                 maxAmbulanze maxGiorni    :=
-emergenza interna       5           7
-emergenza bianca        0           0
-emergenza rossa         7           4
-emergenza verde         9           4
-trasporto interna       3           7
-trasporto bianca        5           7
-trasporto rossa         0           0
-trasporto verde         5           4
+emergenza interna        3          7
+emergenza bianca         0          0
+emergenza rossa         15          5
+emergenza verde         30          6
+trasporto interna        2          7
+trasporto bianca         5          3
+trasporto rossa          0          0
+trasporto verde         10          4
 ;
 
 costoGiornaliero :=
@@ -55,7 +56,7 @@ interna   0
 ;
 
 costoAttivazioneSettimanale [*] :=
-interna    0
+interna   25
  bianca  150
   rossa  130
   verde  170
@@ -75,12 +76,227 @@ interna  1
 attivazioneGiornaliera [emergenza,*,*] (tr)
 :         interna bianca rossa verde    :=
 lunedi        1      0      0     1
-martedi       1      0      1     0
+martedi       1      0      0     1
 mercoledi     1      0      1     0
-giovedi       1      0      1     0
-venerdi       1      0      0     1
+giovedi       1      0      1     1
+venerdi       1      0      1     1
 sabato        1      0      1     1
-domenica      1      0      0     1
+domenica      1      0      1     1
+
+ [trasporto,*,*] (tr)
+:         interna bianca rossa verde    :=
+lunedi        1      0      0     1
+martedi       1      0      0     1
+mercoledi     1      1      0     0
+giovedi       1      0      0     1
+venerdi       1      0      0     1
+sabato        1      1      0     0
+domenica      1      1      0     0
+;
+
+ambulanze [emergenza,*,*] (tr)
+:         interna bianca rossa verde    :=
+lunedi        0      0      0    20
+martedi       0      0      0    22
+mercoledi     0      0     10     0
+giovedi       1      0     15     4
+venerdi       0      0     13    17
+sabato        0      0     12    18
+domenica      0      0     14     1
+
+ [trasporto,*,*] (tr)
+:         interna bianca rossa verde    :=
+lunedi        1      0      0     2
+martedi       0      0      0     5
+mercoledi     1      1      0     0
+giovedi       1      0      0     2
+venerdi       0      0      0     4
+sabato        1      1      0     0
+domenica      0      0      0     0
+;
+
+ambulanzeSurplus [emergenza,*,*] (tr)
+:         interna bianca rossa verde    :=
+lunedi        3      0      0     0
+martedi       3      0      0     0
+mercoledi     3      0      0     0
+giovedi       2      0      0     0
+venerdi       3      0      2     0
+sabato        3      0      3     0
+domenica      3      0      1     0
+
+ [trasporto,*,*] (tr)
+:         interna bianca rossa verde    :=
+lunedi        1      0      0     0
+martedi       2      0      0     1
+mercoledi     1      0      0     0
+giovedi       1      0      0     0
+venerdi       2      0      0     0
+sabato        1      0      0     0
+domenica      1      0      0     0
+;
+
+
+----------------
+- Costo Minimo - 
+----------------
+costo = 3595
+
+DATASET 2 - PROBLEMA NON RISOLVIBILE
+--------------------------------------------
+--------------------------------------------
+ Risultati Esecuzione - Gestione Ambulanze
+--------------------------------------------
+--------------------------------------------
+Tempo di esecuzione: 0.000 s
+
+--------------------
+- Parametri in uso - 
+--------------------
+:                   bisogno surplus    :=
+lunedi    emergenza    200     200
+lunedi    trasporto    200     200
+martedi   emergenza    200     200
+martedi   trasporto    200     200
+mercoledi emergenza    200     200
+mercoledi trasporto    200     200
+giovedi   emergenza    200     200
+giovedi   trasporto    200     200
+venerdi   emergenza    200     200
+venerdi   trasporto    200     200
+sabato    emergenza    200     200
+sabato    trasporto    200     200
+domenica  emergenza    200     200
+domenica  trasporto    200     200
+;
+
+:                 maxAmbulanze maxGiorni    :=
+emergenza interna       5           7
+emergenza bianca        5           7
+emergenza rossa         5           7
+emergenza verde         5           7
+trasporto interna       5           7
+trasporto bianca        5           7
+trasporto rossa         5           7
+trasporto verde         5           7
+;
+
+costoGiornaliero :=
+emergenza interna   15
+emergenza bianca    15
+emergenza rossa     15
+emergenza verde     15
+trasporto interna   15
+trasporto bianca    15
+trasporto rossa     15
+trasporto verde     15
+;
+
+addSurplus [*] :=
+interna  0.5
+ bianca  0.5
+  rossa  0.5
+  verde  0.5
+;
+
+costoAttivazioneSettimanale [*] :=
+interna  100
+ bianca  100
+  rossa  100
+  verde  100
+;
+
+
+--------------------
+- Stampa Risultati - 
+--------------------
+--- PROBLEMA NON RISOLVIBILE ---
+-> Codice Errore: solve_result_num = 299
+
+DATASET 3 - PROBLEMA CON DATI DI DEFAULT
+--------------------------------------------
+--------------------------------------------
+ Risultati Esecuzione - Gestione Ambulanze
+--------------------------------------------
+--------------------------------------------
+Tempo di esecuzione: 0.016 s
+
+--------------------
+- Parametri in uso - 
+--------------------
+:                   bisogno surplus    :=
+lunedi    emergenza     7       2
+lunedi    trasporto     7       2
+martedi   emergenza     7       2
+martedi   trasporto     7       2
+mercoledi emergenza     7       2
+mercoledi trasporto     7       2
+giovedi   emergenza     7       2
+giovedi   trasporto     7       2
+venerdi   emergenza     7       2
+venerdi   trasporto     7       2
+sabato    emergenza     7       2
+sabato    trasporto     7       2
+domenica  emergenza     7       2
+domenica  trasporto     7       2
+;
+
+:                 maxAmbulanze maxGiorni    :=
+emergenza interna       5           7
+emergenza bianca        5           7
+emergenza rossa         5           7
+emergenza verde         5           7
+trasporto interna       5           7
+trasporto bianca        5           7
+trasporto rossa         5           7
+trasporto verde         5           7
+;
+
+costoGiornaliero :=
+emergenza interna   15
+emergenza bianca    15
+emergenza rossa     15
+emergenza verde     15
+trasporto interna   15
+trasporto bianca    15
+trasporto rossa     15
+trasporto verde     15
+;
+
+addSurplus [*] :=
+interna  0.5
+ bianca  0.5
+  rossa  0.5
+  verde  0.5
+;
+
+costoAttivazioneSettimanale [*] :=
+interna  100
+ bianca  100
+  rossa  100
+  verde  100
+;
+
+
+--------------------
+- Stampa Risultati - 
+--------------------
+attivazioneSettimanale [*] :=
+interna  1
+ bianca  1
+  rossa  0
+  verde  0
+;
+
+attivazioneGiornaliera [emergenza,*,*] (tr)
+:         interna bianca rossa verde    :=
+lunedi        1      1      0     0
+martedi       1      1      0     0
+mercoledi     1      1      0     0
+giovedi       1      1      0     0
+venerdi       1      1      0     0
+sabato        1      1      0     0
+domenica      1      1      0     0
 
  [trasporto,*,*] (tr)
 :         interna bianca rossa verde    :=
@@ -95,335 +311,49 @@ domenica      1      1      0     0
 
 ambulanze [emergenza,*,*] (tr)
 :         interna bianca rossa verde    :=
-lunedi        5      0      0     2
-martedi       5      0      2     0
-mercoledi     5      0      2     0
-giovedi       5      0      2     0
-venerdi       5      0      0     5
-sabato        5      0      7     0
-domenica      5      0      0     5
+lunedi        5      2      0     0
+martedi       5      2      0     0
+mercoledi     5      2      0     0
+giovedi       5      2      0     0
+venerdi       5      2      0     0
+sabato        5      2      0     0
+domenica      5      2      0     0
 
  [trasporto,*,*] (tr)
 :         interna bianca rossa verde    :=
-lunedi        3      2      0     0
-martedi       3      2      0     0
-mercoledi     3      2      0     0
-giovedi       3      2      0     0
-venerdi       3      2      0     0
-sabato        0      0      0     0
-domenica      0      0      0     0
+lunedi        5      2      0     0
+martedi       5      2      0     0
+mercoledi     5      2      0     0
+giovedi       5      2      0     0
+venerdi       5      2      0     0
+sabato        5      2      0     0
+domenica      5      2      0     0
 ;
 
 ambulanzeSurplus [emergenza,*,*] (tr)
 :         interna bianca rossa verde    :=
-lunedi        0      0      0     1
-martedi       0      0      1     0
-mercoledi     0      0      1     0
-giovedi       0      0      2     0
-venerdi       0      0      0     3
-sabato        0      0      0     4
-domenica      0      0      0     4
+lunedi        0      2      0     0
+martedi       0      2      0     0
+mercoledi     0      2      0     0
+giovedi       0      2      0     0
+venerdi       0      2      0     0
+sabato        0      2      0     0
+domenica      0      2      0     0
 
  [trasporto,*,*] (tr)
 :         interna bianca rossa verde    :=
 lunedi        0      2      0     0
 martedi       0      2      0     0
 mercoledi     0      2      0     0
-giovedi       0      3      0     0
-venerdi       0      3      0     0
-sabato        1      0      0     0
-domenica      1      0      0     0
+giovedi       0      2      0     0
+venerdi       0      2      0     0
+sabato        0      2      0     0
+domenica      0      2      0     0
 ;
 
 
 ----------------
 - Costo Minimo - 
 ----------------
-costo = 5320
-
---------------------------------------------
---------------------------------------------
- Risultati Esecuzione - Gestione Ambulanze
---------------------------------------------
---------------------------------------------
-Tempo di esecuzione: 0.047 s
-
---------------------
-- Parametri in uso - 
---------------------
-:                   bisogno surplus    :=
-lunedi    emergenza     7       2
-lunedi    trasporto     7       2
-martedi   emergenza     7       2
-martedi   trasporto     7       2
-mercoledi emergenza     7       2
-mercoledi trasporto     7       2
-giovedi   emergenza     7       2
-giovedi   trasporto     7       2
-venerdi   emergenza     7       2
-venerdi   trasporto     7       2
-sabato    emergenza     7       2
-sabato    trasporto     7       2
-domenica  emergenza     7       2
-domenica  trasporto     7       2
-;
-
-:                 maxAmbulanze maxGiorni    :=
-emergenza interna       5           7
-emergenza bianca        5           7
-emergenza rossa         5           7
-emergenza verde         5           7
-trasporto interna       5           7
-trasporto bianca        5           7
-trasporto rossa         5           7
-trasporto verde         5           7
-;
-
-costoGiornaliero :=
-emergenza interna   15
-emergenza bianca    15
-emergenza rossa     15
-emergenza verde     15
-trasporto interna   15
-trasporto bianca    15
-trasporto rossa     15
-trasporto verde     15
-;
-
-addSurplus [*] :=
-interna  0.5
- bianca  0.5
-  rossa  0.5
-  verde  0.5
-;
-
-costoAttivazioneSettimanale [*] :=
-interna  100
- bianca  100
-  rossa  100
-  verde  100
-;
-
-
---------------------
-- Stampa Risultati - 
---------------------
-attivazioneSettimanale [*] :=
-interna  1
- bianca  0
-  rossa  0
-  verde  1
-;
-
-attivazioneGiornaliera [emergenza,*,*] (tr)
-:         interna bianca rossa verde    :=
-lunedi        1      0      0     1
-martedi       1      0      0     1
-mercoledi     1      0      0     1
-giovedi       1      0      0     1
-venerdi       1      0      0     1
-sabato        1      0      0     1
-domenica      1      0      0     1
-
- [trasporto,*,*] (tr)
-:         interna bianca rossa verde    :=
-lunedi        1      0      0     1
-martedi       1      0      0     1
-mercoledi     1      0      0     1
-giovedi       1      0      0     1
-venerdi       1      0      0     1
-sabato        1      0      0     1
-domenica      1      0      0     1
-;
-
-ambulanze [emergenza,*,*] (tr)
-:         interna bianca rossa verde    :=
-lunedi        2      0      0     5
-martedi       2      0      0     5
-mercoledi     2      0      0     5
-giovedi       2      0      0     5
-venerdi       2      0      0     5
-sabato        2      0      0     5
-domenica      2      0      0     5
-
- [trasporto,*,*] (tr)
-:         interna bianca rossa verde    :=
-lunedi        2      0      0     5
-martedi       2      0      0     5
-mercoledi     2      0      0     5
-giovedi       2      0      0     5
-venerdi       2      0      0     5
-sabato        2      0      0     5
-domenica      2      0      0     5
-;
-
-ambulanzeSurplus [emergenza,*,*] (tr)
-:         interna bianca rossa verde    :=
-lunedi        2      0      0     0
-martedi       2      0      0     0
-mercoledi     2      0      0     0
-giovedi       2      0      0     0
-venerdi       2      0      0     0
-sabato        2      0      0     0
-domenica      2      0      0     0
-
- [trasporto,*,*] (tr)
-:         interna bianca rossa verde    :=
-lunedi        2      0      0     0
-martedi       2      0      0     0
-mercoledi     2      0      0     0
-giovedi       2      0      0     0
-venerdi       2      0      0     0
-sabato        2      0      0     0
-domenica      2      0      0     0
-;
-
-
-----------------
-- Costo Minimo - 
-----------------
-costo = 3875
-
---------------------------------------------
---------------------------------------------
- Risultati Esecuzione - Gestione Ambulanze
---------------------------------------------
---------------------------------------------
-Tempo di esecuzione: 0.000 s
-
---------------------
-- Parametri in uso - 
---------------------
-:                   bisogno surplus    :=
-lunedi    emergenza     7       2
-lunedi    trasporto     7       2
-martedi   emergenza     7       2
-martedi   trasporto     7       2
-mercoledi emergenza     7       2
-mercoledi trasporto     7       2
-giovedi   emergenza     7       2
-giovedi   trasporto     7       2
-venerdi   emergenza     7       2
-venerdi   trasporto     7       2
-sabato    emergenza     7       2
-sabato    trasporto     7       2
-domenica  emergenza     7       2
-domenica  trasporto     7       2
-;
-
-:                 maxAmbulanze maxGiorni    :=
-emergenza interna       5           7
-emergenza bianca        5           7
-emergenza rossa         5           7
-emergenza verde         5           7
-trasporto interna       5           7
-trasporto bianca        5           7
-trasporto rossa         5           7
-trasporto verde         5           7
-;
-
-costoGiornaliero :=
-emergenza interna   15
-emergenza bianca    15
-emergenza rossa     15
-emergenza verde     15
-trasporto interna   15
-trasporto bianca    15
-trasporto rossa     15
-trasporto verde     15
-;
-
-addSurplus [*] :=
-interna  0.5
- bianca  0.5
-  rossa  0.5
-  verde  0.5
-;
-
-costoAttivazioneSettimanale [*] :=
-interna  100
- bianca  100
-  rossa  100
-  verde  100
-;
-
-
---------------------
-- Stampa Risultati - 
---------------------
-attivazioneSettimanale [*] :=
-interna  1
- bianca  0
-  rossa  0
-  verde  1
-;
-
-attivazioneGiornaliera [emergenza,*,*] (tr)
-:         interna bianca rossa verde    :=
-lunedi        1      0      0     1
-martedi       1      0      0     1
-mercoledi     1      0      0     1
-giovedi       1      0      0     1
-venerdi       1      0      0     1
-sabato        1      0      0     1
-domenica      1      0      0     1
-
- [trasporto,*,*] (tr)
-:         interna bianca rossa verde    :=
-lunedi        1      0      0     1
-martedi       1      0      0     1
-mercoledi     1      0      0     1
-giovedi       1      0      0     1
-venerdi       1      0      0     1
-sabato        1      0      0     1
-domenica      1      0      0     1
-;
-
-ambulanze [emergenza,*,*] (tr)
-:         interna bianca rossa verde    :=
-lunedi        2      0      0     5
-martedi       2      0      0     5
-mercoledi     2      0      0     5
-giovedi       2      0      0     5
-venerdi       2      0      0     5
-sabato        2      0      0     5
-domenica      2      0      0     5
-
- [trasporto,*,*] (tr)
-:         interna bianca rossa verde    :=
-lunedi        2      0      0     5
-martedi       2      0      0     5
-mercoledi     2      0      0     5
-giovedi       2      0      0     5
-venerdi       2      0      0     5
-sabato        2      0      0     5
-domenica      2      0      0     5
-;
-
-ambulanzeSurplus [emergenza,*,*] (tr)
-:         interna bianca rossa verde    :=
-lunedi        2      0      0     0
-martedi       2      0      0     0
-mercoledi     2      0      0     0
-giovedi       2      0      0     0
-venerdi       2      0      0     0
-sabato        2      0      0     0
-domenica      2      0      0     0
-
- [trasporto,*,*] (tr)
-:         interna bianca rossa verde    :=
-lunedi        2      0      0     0
-martedi       2      0      0     0
-mercoledi     2      0      0     0
-giovedi       2      0      0     0
-venerdi       2      0      0     0
-sabato        2      0      0     0
-domenica      2      0      0     0
-;
-
-
-----------------
-- Costo Minimo - 
-----------------
-costo = 3875
+costo = 2720
 
