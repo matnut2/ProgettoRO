@@ -23,7 +23,7 @@ verde						5			9
 
 param maxGiorni (tr):	trasporto emergenza :=
 interna						7			7
-bianca						7			0
+bianca						3			0
 rossa						0			4
 verde						4			4
 ;
@@ -43,7 +43,7 @@ verde		10.00
 ;
 
 param costoAttivazioneSettimanale :=
-interna		0
+interna		25
 bianca		150
 rossa		130
 verde		170

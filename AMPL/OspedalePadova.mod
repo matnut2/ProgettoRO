@@ -28,6 +28,9 @@ param costoAttivazioneSettimanale{ Fornitori } >= 0 default 100;
 # BigM per Vincoli di Tipo Logico (COSTANTE)
 param BigM > 0 integer default 500;
 
+# Numero Minimo di Fornitori da Attivare al Giorno
+param MIN_FORNITORI > 0 <= card(Fornitori) default (card(Fornitori)/2);
+
 ### VARIABILI ###
 # Ambulanze di Tipo t del Fornitore f Attivate il Giorno g (+ Vincolo 2.2)
 var ambulanze{ t in Tipo, f in Fornitori, g in Giorni } >= 0 integer; 
@@ -56,14 +59,11 @@ subject to necessitaGiornaliera { t in Tipo, g in Giorni } : sum{ f in Fornitori
 subject to necessitaGiornalieraSurplus {t in Tipo, g in Giorni} : sum{ f in Fornitori } ambulanzeSurplus[t, f, g] = surplus[g, t];
 subject to maxDisponibilita {t in Tipo, f in Fornitori, g in Giorni } : ambulanze[t, f, g] + ambulanzeSurplus[t, f, g] <= maxAmbulanze[t, f]; 
 
-# Vincolo per la Disponibilita' dei Fornitori
-subject to disponibilita { t in Tipo, f in Fornitori, g in Giorni } : ambulanze[t, f, g] <= maxAmbulanze[t, f];
-
 # Vincolo Logico per l'Attivazione Settimanale di un Fornitore Indipendentemente dal Tipo di Ambulanza Attivata (Vincolo 2.1)
 subject to attivazioneSettimanaleFornitore { t in Tipo, f in Fornitori, g in Giorni } :  ambulanze[t, f, g] <= BigM * attivazioneSettimanale[f];
 
-# Vincolo Logico per l'Attivazione di Almeno 3 Fornitori in un Giorno (Considerando il Tipo di Ambulanza) (Vincolo 2.3) + Vincoli Derivanti
-subject to attivazioneMinima {t in Tipo, g in Giorni } : sum{ f in Fornitori } attivazioneGiornaliera[t, f, g] >= 2;
+# Vincolo Logico per l'Attivazione di Almeno MIN_FORNITORI Fornitori in un Giorno (Considerando il Tipo di Ambulanza) (Vincolo 2.3) + Vincoli Derivanti
+subject to attivazioneMinima {t in Tipo, g in Giorni } : sum{ f in Fornitori } attivazioneGiornaliera[t, f, g] >= MIN_FORNITORI;
 subject to collegamento2 { t in Tipo, f in Fornitori, g in Giorni} : attivazioneGiornaliera[t, f, g] <= attivazioneSettimanale[f];
 subject to attivazioniGiornaliere { t in Tipo, f in Fornitori, g in Giorni } :(ambulanze[t, f, g] + ambulanzeSurplus[t, f, g]) <= BigM * attivazioneGiornaliera[ t, f, g];
 ## il vincolo che "obbliga" ad utilizzare almeno una ambulanza del fornitore se attivato causa un malfunzionamento inspiegabile del programma

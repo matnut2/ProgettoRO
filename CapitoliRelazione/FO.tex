@@ -17,25 +17,40 @@ Dove i termini sono così definiti:
     \item Ogni giorno la Centrale Operativa ha necessità di un numero diverso di ambulanze:
 \end{itemize}
 \begin{flalign*}
-    &  \sum_{f \in FornitoriA} ambulanzeA[f, g] \geq bisognoA[g] + surplusA[g] & \forall g \in Giorni & \\
-    &  \sum_{f \in FornitoriB} ambulanzeB[f, g] \geq bisognoB[g] + surplusB[g] & \forall g \in Giorni &
+    &  \sum_{t \in Tipo, f \in FornitoriA} ambulanze[t, f, g] \geq bisogno[t, g] & \forall g \in Giorni & \\
+    &  \sum_{t \in Tipo, f \in FornitoriA} ambulanzeSurplus[t, f, g] \geq surplus[t, g] & \forall g \in Giorni & \\
 \end{flalign*}
 \begin{itemize}
     \item I fornitori dispongono di un numero massimo di ambulanze fornibili in un giorno:
 \end{itemize}
 \begin{flalign*}
-    &  ambulanze[f, g] \leq maxA[f] & \forall f \in FornitoriA, g \in Giorni & \\
-    &  ambulanze[f, g] \leq maxB[f] & \forall f \in FornitoriB, g \in Giorni &
+    &  ambulanze[t, f, g] + ambulanzeSurplus[t, f, g] \leq maxAmbulanze[t, f] & \forall t \in Tipo, f \in Fornitori, g \in Giorni & \\
 \end{flalign*}
 \begin{itemize}
     \item Le ambulanze di un determinato fornitore si possono attivare se e solo se si è pagata la quota di attivazione settimanale:
 \end{itemize}
 \begin{flalign*}
-    & ambulanzeA[f, g] \leq BigM \cdot attivazioneSettimanaleA[f] & \\
-    & ambulanzeB[f, g] \leq BigM \cdot attivazioneSettimanaleB[f] &
+    & ambulanze[t, f, g] + ambulanzeSurplus[t, f, g] \leq BigM \cdot attivazioneSettimanale[f] && \\
+\end{flalign*}
+\begin{itemize}
+    \item Ogni giorno bisogna attivare un numero minimo di fornitori:
+\end{itemize}
+\begin{flalign*}
+    & \sum_{f \in Fornitori} attivazioneGiornaliera[t, f, g] >= MIN\_FORNITORI\ \ \  \forall t \in Tipo, g \in Giorni && \\
+    & attivazioneGiornaliera[t, f, g] <= attivazioneSettimanale[f] \ \ \ \  \forall t \in Tipo, f \in Fornitori, g \in Giorni && \\
+    & ambulanze[t, f, g] + ambulanzeSurplus[t, f, g] <= BigM \cdot attivazioneGiornaliera[t, f, g] && \\
+    &  \ \ \ \forall t \in Tipo, f \in Fornitori, g \in Giorni && \\
+\end{flalign*}
+\begin{itemize}
+    \item Ogni fornitore può essere attivato un numero massimo di volte durante la settimana
+\end{itemize}
+\begin{flalign*}
+    & \sum_{g \in Giorni} attivazioneGiornaliera[t, f, g] <= maxGiorni[t, f] & \forall t \in Tipo, f \in Fornitori & \\
 \end{flalign*}
 \textbf{Domini:}
 \begin{itemize}
-    \item $ambulanzeA_{f, g}, \ ambulanzeB_{f, g} \ \geq \ 0$
-    \item $attivazioneSettimanaleA_{f}, \ attivazioneSettimanaleB_{f} \ \in \ {0, \ 1}$
+    \item $ambulanze_{t, f, g} \geq \ 0$
+    \item $ambulanzeSurplus_{t, f, g} \geq 0$
+    \item $attivazioneSettimanale_{f} \in \ {[0, \ 1]}$
+    \item $attivazioneGiornaliera_{t, f, g} \in \ {[0, \ 1]}$
 \end{itemize}
