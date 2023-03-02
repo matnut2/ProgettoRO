@@ -17,8 +17,8 @@ Dove i termini sono così definiti:
     \item Ogni giorno la Centrale Operativa ha necessità di un numero diverso di ambulanze:
 \end{itemize}
 \begin{flalign*}
-    &  \sum_{t \in Tipo, f \in FornitoriA} ambulanze[t, f, g] \geq bisogno[t, g] & \forall g \in Giorni & \\
-    &  \sum_{t \in Tipo, f \in FornitoriA} ambulanzeSurplus[t, f, g] \geq surplus[t, g] & \forall g \in Giorni & \\
+    &  \sum_{t \in Tipo, f \in Fornitori} ambulanze[t, f, g] \geq bisogno[t, g] & \forall g \in Giorni & \\
+    &  \sum_{t \in Tipo, f \in Fornitori} ambulanzeSurplus[t, f, g] \geq surplus[t, g] & \forall g \in Giorni & \\
 \end{flalign*}
 \begin{itemize}
     \item I fornitori dispongono di un numero massimo di ambulanze fornibili in un giorno:
