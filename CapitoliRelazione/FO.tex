@@ -6,10 +6,10 @@ La funzione obiettivo del problema può essere espressa in forma generale come s
 \end{align*}
 Dove i termini sono così definiti:
 \begin{flalign*}
-    & \textbf{Costo\ Giornaliero\ Ambulanze\ Standard} = \sum_{t \in Tipo, f \in Fornitori, g \in Giorni} ambulanze[t, f, g] \cdot costoGiornalieroA[t, f] && \\
+    & \textbf{Costo\ Giornaliero\ Ambulanze\ Standard} = \sum_{t \in Tipo, f \in Fornitori, g \in Giorni} ambulanze[t, f, g] \cdot costoGiornaliero[t, f] && \\
     & \textbf{Costo\ Giornaliero\ Ambulanze\ Surplus} = Costo\ Giornaliero\ Ambulanze\ Standard\ + && \\ 
     &         Costo Giornaliero Ambulanze Standard \cdot addSurplus[t, f] && \\
-    & \textbf{Costo\ Attivazione\ Settimanale} = \sum_{f \in Fornitori} attivazioneSettimanaleA[f] \cdot costoAttivazioneSettimanale[f] && \\
+    & \textbf{Costo\ Attivazione\ Settimanale} = \sum_{f \in Fornitori} attivazioneSettimanale[f] \cdot costoAttivazioneSettimanale[f] && \\
     & \textbf{Costo\ Attivazione\ Giornaliera} = \sum_{t \in Tipo, f \in Fornitori, g \in Giorni} attivazioneGiornaliera[t, f, g] \cdot costoGiornaliero[t, f] &&
 \end{flalign*}
 \textbf{subject to}
